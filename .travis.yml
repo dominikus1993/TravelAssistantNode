@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- "6"
+- "6.1"
+- "5.11"
+- "4.1"
+sudo: true
+before_script:
+- npm install
+- npm install -g gulp
+- npm install -g typings
+- typings install
+script:
+- gulp compile
