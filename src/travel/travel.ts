@@ -42,6 +42,8 @@ const UsersSchema = new Schema({
     password: String
 });
 
+const travelModel = model("Travel", ReservationSchema);
+
 export class TravelRepository{
 
 }
