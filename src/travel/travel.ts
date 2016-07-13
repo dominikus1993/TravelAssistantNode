@@ -1,10 +1,10 @@
 ///<reference path="../../typings/index.d.ts"/>
 
-import * as mongoose from "mongoose"
+import {Document, Schema}  from "mongoose"
 import {User} from "../users/user";
 
 
-export interface Travel extends mongoose.Document {
+export interface Travel extends Document {
     from:string;
     to:string;
     date:Date;
@@ -13,14 +13,27 @@ export interface Travel extends mongoose.Document {
     placeLimit:number;
 }
 
-export interface Reservation extends mongoose.Document {
-    id?: string;
+export interface Reservation extends Document {
+    id?:string;
     user:User;
     date:Date;
-    type:ReservationType;
+    travelType:ReservationType;
 }
 
-export enum ReservationType{
-    In,
-    Out
-}
+export type ReservationType = "IN" | "OUT"
+
+export const TravelSchema = new Schema({
+    from: String,
+    to: String,
+    date: Date,
+    owner: User,
+    passengers: [{type: Schema.Types.ObjectId, ref: "Reservation"}],
+    placeLimit: Number,
+});
+
+export const ReservationSchema = new Schema({
+    id: String,
+    user: [{type: Schema.Types.ObjectId, ref: "User"}],
+    date: Date,
+    travelType: {type: String, enum: ["IN", "OUT"]}
+});

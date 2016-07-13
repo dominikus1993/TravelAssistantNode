@@ -55,7 +55,7 @@ gulp.task("compile", ["build"], function () {
 });
 
 
-gulp.task("test", ["build", "buildjs"], function () {
+gulp.task("test", ["compile"], function () {
     return gulp.src("test/**/*.js").pipe(jasmine({
         reporter: new reporters.NUnitXmlReporter()
     }));
