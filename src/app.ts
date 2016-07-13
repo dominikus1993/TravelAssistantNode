@@ -1,13 +1,10 @@
-/**
- * Created by dominik.kotecki on 13-07-2016.
- */
-"use strict";
+/// <reference path="../typings/index.d.ts" />
 import {Request, Response} from "express";
-import * as express from "express"
-import * as path from "path"
-import * as logger from "morgan"
-import * as cookieParser from 'cookie-parser';
-import * as bodyParser from 'body-parser';
+import * as express from "express";
+import * as path from "path";
+import * as logger from "morgan";
+import * as cookieParser from "cookie-parser";
+import * as bodyParser from "body-parser";
 
 var app = express();
 
@@ -15,22 +12,22 @@ app.use(logger(<any>"dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "html");
 
 app.use((req: Request, res: Response, next: Function) => {
-    var err: any = new Error('Not Found');
+    var err: any = new Error("Not Found");
     err.status = 404;
     next(err);
 });
 
 
-if (app.get('env') === 'development') {
+if (app.get("env") === "development") {
     app.use(function(err: any, req: Request, res: Response, next: Function) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.render("error", {
             message: err.message,
             error: err
         });
@@ -41,7 +38,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err: any, req: Request, res: Response, next: Function) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render("error", {
         message: err.message,
         error: {}
     });

@@ -44,3 +44,7 @@ crashlytics-build.properties
 fabric.properties
 
 node_modules
+
+*.js
+*.d.ts
+typings.json
