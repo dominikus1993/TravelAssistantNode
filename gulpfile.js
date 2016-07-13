@@ -50,7 +50,7 @@ gulp.task("build", function() {
     return build();
 });
 
-gulp.task("buildjs", ["build"], function () {
+gulp.task("compile", ["build"], function () {
     return buildJs();
 });
 
@@ -81,7 +81,6 @@ gulp.task("nodemon", function(cb){
     });
 });
 
-gulp.task("compile", ["build", "buildjs"]);
 
 gulp.task("watch", function () {
     gulp.watch(tsFiles, ["compile"]);

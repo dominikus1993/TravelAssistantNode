@@ -1,7 +1,9 @@
-/**
- * Created by dominik.kotecki on 13-07-2016.
- */
-export module TravelAssistant.Users.Models{
-    export interface User{
-    }
+///<reference path="../../typings/index.d.ts"/>
+
+import * as mongoose from "mongoose"
+
+export interface User extends mongoose.Document {
+    username:string;
+    email:string;
+    password:string;
 }
