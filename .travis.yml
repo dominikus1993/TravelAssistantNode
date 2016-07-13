@@ -12,3 +12,4 @@ before_script:
 - typings install
 script:
 - gulp compile
+- gulp test

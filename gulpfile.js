@@ -1,15 +1,18 @@
 "use strict";
-var gulp = require("gulp");
-var babel = require("gulp-babel");
-var watch = require("gulp-watch");
-var tsb = require('gulp-tsb');
-var notify = require('gulp-notify');
-var nodemon = require('gulp-nodemon');
-var browserSync = require('browser-sync');
+const gulp = require("gulp");
+const babel = require("gulp-babel");
+const watch = require("gulp-watch");
+const tsb = require('gulp-tsb');
+const notify = require('gulp-notify');
+const nodemon = require('gulp-nodemon');
+const browserSync = require('browser-sync');
+const jasmine = require("gulp-jasmine");
+const reporters = require('jasmine-reporters');
 
-var tsFiles = ["src/**/*.ts", "typings/**/*.ts"];
-var jsFiles = ["src/**/*.js", "!node_modules/**/*.js"];
-var compilation = tsb.create({
+
+const tsFiles = ["src/**/*.ts", "typings/**/*.ts", "test/**/*.ts"];
+const jsFiles = ["src/**/*.js", "!node_modules/**/*.js", "test/**/*.js"];
+const compilation = tsb.create({
     target: 'es6',
     module: 'commonjs',
     declaration: false,
@@ -52,8 +55,10 @@ gulp.task("buildjs", ["build"], function () {
 });
 
 
-gulp.task("test", function () {
-    return build().pipe(buildJs());
+gulp.task("test", ["build", "buildjs"], function () {
+    return gulp.src("test/**/*.js").pipe(jasmine({
+        reporter: new reporters.NUnitXmlReporter()
+    }));
 });
 
 gulp.task("nodemon", function(cb){
