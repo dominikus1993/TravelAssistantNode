@@ -19,8 +19,7 @@ var compilation = tsb.create({
     "preserveConstEnums": false
 });
 
-
-gulp.task("build", function() {
+function build() {
     return gulp.src(tsFiles).pipe(compilation()).pipe(gulp.dest(function (file) {
         return file.base;
     })).pipe(notify({
@@ -29,9 +28,9 @@ gulp.task("build", function() {
         onLast: true,
         notifier: function(args){}
     }));
-});
+}
 
-gulp.task("buildjs", ["build"], function () {
+function buildJs() {
     return gulp.src(jsFiles).pipe(babel({
         presets: ['es2015']
     })).pipe(gulp.dest(function(file){
@@ -42,6 +41,19 @@ gulp.task("buildjs", ["build"], function () {
         onLast: true,
         notifier: function(args){}
     }));
+}
+
+gulp.task("build", function() {
+    return build();
+});
+
+gulp.task("buildjs", ["build"], function () {
+    return buildJs();
+});
+
+
+gulp.task("test", function () {
+    return build().pipe(buildJs());
 });
 
 gulp.task("nodemon", function(cb){
