@@ -14,6 +14,7 @@ export interface Travel extends mongoose.Document {
 }
 
 export interface Reservation extends mongoose.Document {
+    id?: string;
     user:User;
     date:Date;
     type:ReservationType;
