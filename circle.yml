@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 6.1
+dependencies:
+  override:
+    - npm install
+    - npm install -g gulp
+    - npm install -g typings
+    - typings install

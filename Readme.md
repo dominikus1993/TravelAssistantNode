@@ -1,1 +1,2 @@
-[![Build Status](https://travis-ci.org/dominikus1993/TravelAssistantNode.svg?branch=master)](https://travis-ci.org/dominikus1993/TravelAssistantNode)
+Travis: [![Build Status](https://travis-ci.org/dominikus1993/TravelAssistantNode.svg?branch=master)](https://travis-ci.org/dominikus1993/TravelAssistantNode)
+CircleCI: [![CircleCI](https://circleci.com/gh/dominikus1993/TravelAssistantNode.svg?style=svg)](https://circleci.com/gh/dominikus1993/TravelAssistantNode)
