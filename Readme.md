@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/dominikus1993/SentimentAnalyzer.WebApp.svg?branch=master)](https://travis-ci.org/dominikus1993/SentimentAnalyzer.WebApp)
