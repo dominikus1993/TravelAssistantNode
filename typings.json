@@ -12,6 +12,7 @@
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
     "mongoose": "registry:dt/mongoose#4.5.4+20160713062330",
+    "mongoose-mock": "registry:dt/mongoose-mock#0.4.0+20160316155526",
     "morgan": "registry:dt/morgan#1.7.0+20160524142355",
     "mpromise": "registry:dt/mpromise#0.5.4+20160316155526",
     "node": "registry:dt/node#6.0.0+20160621231320",
