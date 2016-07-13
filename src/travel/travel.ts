@@ -3,6 +3,7 @@
 import * as mongoose from "mongoose"
 import {User} from "../users/user";
 
+
 export interface Travel extends mongoose.Document {
     from:string;
     to:string;
