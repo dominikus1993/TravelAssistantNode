@@ -5,7 +5,8 @@ import {Model} from "~mongoose/index";
 
 
 export interface ITravelRepository{
-    findAll() : Promise<Travel[]>
+    findAll() : Promise<Travel[]>;
+    findBy(obj : Object) : Promise<Travel[]>;
 }
 
 export class TravelRepository implements ITravelRepository{
@@ -16,5 +17,9 @@ export class TravelRepository implements ITravelRepository{
 
     public findAll() : Promise<Travel[]>{
         return this.model.find({}).exec()
+    }
+
+    public findBy(obj : Object) : Promise<Travel[]>{
+        return this.model.find(obj).exec();
     }
 }
