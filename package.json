@@ -41,6 +41,7 @@
     "jasmine-reporters": "^2.2.0",
     "karma": "^0.13.22",
     "nodemon": "^1.9.1",
-    "tern-node-express": "^0.4.0"
+    "tern-node-express": "^0.4.0",
+    "tslint": "^3.13.0"
   }
 }
