@@ -5,3 +5,9 @@ export interface User extends Document {
     email:string;
     password:string;
 }
+
+const UsersSchema = new Schema({
+    username: String,
+    email: String,
+    password: String
+});

@@ -2,6 +2,7 @@
 
 import {Document, Schema, model}  from "mongoose"
 import {User} from "../users/user";
+import Promise = require("~mongoose~mpromise/index");
 
 
 export interface Travel extends Document {
@@ -36,14 +37,10 @@ const ReservationSchema = new Schema({
     travelType: {type: String, enum: ["IN", "OUT"]}
 });
 
-const UsersSchema = new Schema({
-    username: String,
-    email: String,
-    password: String
-});
-
-const travelModel = model("Travel", TravelSchema);
+const travelModel = model<User>("Travel", TravelSchema);
 
 export class TravelRepository{
-
+    public findAll(){
+        return travelModel.find({}).exec()
+    }
 }

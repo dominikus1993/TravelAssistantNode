@@ -1,6 +1,7 @@
 {
   "name": "travel_assistant",
   "dependencies": {
+    "mongoose": "registry:npm/mongoose#4.3.5+20160628072220",
     "ramda": "registry:npm/ramda#0.21.0+20160531162943"
   },
   "globalDependencies": {
