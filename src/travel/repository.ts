@@ -1,5 +1,4 @@
 ///<reference path="../../typings/index.d.ts"/>
-import {Document, Schema, model}  from "mongoose"
 import Promise = require("~mongoose~mpromise/index");
 import {Travel} from "./model";
 import {Model} from "~mongoose/index";

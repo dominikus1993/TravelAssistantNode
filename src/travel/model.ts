@@ -1,6 +1,7 @@
 ///<reference path="../../typings/index.d.ts"/>
 
 import {Document, Schema, model}  from "mongoose"
+import {Model} from "~mongoose/index";
 import {User} from "../users/model";
 import Promise = require("~mongoose~mpromise/index");
 
