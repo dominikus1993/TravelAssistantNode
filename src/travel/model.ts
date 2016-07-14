@@ -37,10 +37,5 @@ const ReservationSchema = new Schema({
     travelType: {type: String, enum: ["IN", "OUT"]}
 });
 
-const travelModel = model<User>("Travel", TravelSchema);
+export const travelModel = model<Travel>("Travel", TravelSchema);
 
-export class TravelRepository{
-    public findAll(){
-        return travelModel.find({}).exec()
-    }
-}
