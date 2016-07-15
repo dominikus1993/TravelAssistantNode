@@ -8,7 +8,7 @@ export interface IUserRepository{
 
 export class UserReposiitory implements IUserRepository{
 
-    constructor(private model : Model<User>, private signModel : Model<LoginData>){
+    constructor(private model : Model<User>, private loginDataModel : Model<LoginData>){
 
     }
 
