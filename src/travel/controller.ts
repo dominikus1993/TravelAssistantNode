@@ -15,6 +15,8 @@ const service = new TravelService(new TravelRepository(travelModel));
 travel.get("/all", (req, res, next) => {
     service.findAll().then((result) => {
        res.status(result.isSuccess ? 200 : 500).json(result);
+    }).catch(error => {
+        res.status(500).json(error);
     });
 });
 
