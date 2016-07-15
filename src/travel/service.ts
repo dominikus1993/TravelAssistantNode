@@ -1,3 +1,4 @@
+///<reference path="../../typings/index.d.ts"/>
 import PromiseM = require("~mongoose~mpromise/index");
 import Promise = require("bluebird");
 import {Travel} from "./model";
