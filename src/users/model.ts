@@ -6,10 +6,21 @@ export interface User extends Document {
     password:string;
 }
 
+export interface Singin extends Document{
+    username : string;
+    date : Date;
+}
+
 const UsersSchema = new Schema({
     username: String,
     email: String,
     password: String
 });
 
+const SignInSchema = new Schema({
+   username : String,
+   date : Date
+});
+
 export const userModel = model("User", UsersSchema);
+export const signInModel = model("SignIn", SignInSchema);
