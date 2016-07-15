@@ -11,3 +11,5 @@ const UsersSchema = new Schema({
     email: String,
     password: String
 });
+
+export const userModel = model("User", UsersSchema);
