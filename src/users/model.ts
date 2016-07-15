@@ -1,5 +1,7 @@
 ///<reference path="../../typings/index.d.ts"/>
 import {Document, Schema, model}  from "mongoose"
+import {Model} from "~mongoose/index";
+
 export interface User extends Document {
     username:string;
     email:string;

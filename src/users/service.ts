@@ -1,7 +1,7 @@
 import {LoginData} from "./model";
-import Result = jasmine.Result;
 import Promise = require("bluebird")
 import {IUserRepository} from "./repository";
+import {Result} from "../global/result";
 
 export interface IUserService{
     login(user : {login : string, password : string}) : Promise<Result<LoginData>>;

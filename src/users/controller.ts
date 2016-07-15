@@ -14,5 +14,9 @@ const user = Router();
 
 const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 
+user.post("/register", (req, res, next) => {
+    let user : {username : string, password : string, passwordConfirm : string} = req.body;
+});
+
 export default user;
 
