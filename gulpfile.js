@@ -61,11 +61,11 @@ gulp.task("test", ["compile"], function () {
     }));
 });
 
-gulp.task("nodemon", function(cb){
+gulp.task("nodemon", ['watch'], function(cb){
     var started = false;
 
     return nodemon({
-        script: 'app.js',
+        script: 'src/bin/www',
         watch: jsFiles
     }).on('start', function () {
         if (!started) {
@@ -86,7 +86,7 @@ gulp.task("watch", function () {
     gulp.watch(tsFiles, ["compile"]);
 });
 
-gulp.task('sync', ['nodemon', 'watch'], function () {
+gulp.task('sync', ['nodemon'], function () {
     browserSync.init(null, {
         proxy: "http://localhost:3000",
         files: ["src/public/**/*.*", "src/views/**/*.*"],
