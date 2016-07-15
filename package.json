@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
+    "start": "node ./src/bin/www",
     "test": "gulp test"
   },
   "author": "",

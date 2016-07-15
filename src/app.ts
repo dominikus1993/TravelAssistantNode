@@ -5,11 +5,11 @@ import * as path from "path";
 import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
-import travel = require("./travel/controller")
+import travel from "./travel/controller"
 
 var app = express();
 
-app.use(logger(<any>"dev"));
+app.use(logger((<any>"dev")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -17,6 +17,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
+
+app.use("/api/travel", travel);
+
 
 app.use((req: Request, res: Response, next: Function) => {
     var err: any = new Error("Not Found");
