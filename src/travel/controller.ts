@@ -7,7 +7,6 @@ import {travelModel} from "./model";
 import * as mongoose from "mongoose"
 import Promise = require("bluebird");
 
-mongoose.Promise = <any>Promise;
 mongoose.connect("mongodb://localhost/travelAssistant");
 
 const travel = Router();

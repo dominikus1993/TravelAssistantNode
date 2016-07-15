@@ -6,6 +6,10 @@ import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import travel from "./travel/controller"
+import * as mongoose from "mongoose"
+import Promise = require("bluebird");
+
+mongoose.Promise = <any>Promise;
 
 var app = express();
 
