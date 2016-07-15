@@ -9,11 +9,11 @@ import travel from "./travel/controller"
 import * as mongoose from "mongoose"
 import Promise = require("bluebird");
 
-mongoose.Promise = <any>Promise;
+mongoose.Promise = Promise as any;
 
 var app = express();
 
-app.use(logger((<any>"dev")));
+app.use(logger(("dev" as any)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
