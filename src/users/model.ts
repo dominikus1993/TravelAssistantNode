@@ -22,5 +22,5 @@ const SignInSchema = new Schema({
    date : Date
 });
 
-export const userModel = model("User", UsersSchema);
-export const loginDataModel = model("LoginData", SignInSchema);
+export const userModel = model<User>("User", UsersSchema);
+export const loginDataModel = model<LoginData>("LoginData", SignInSchema);
