@@ -50,3 +50,4 @@ node_modules
 *.xml
 *.d.ts
 typings/
+.idea/
