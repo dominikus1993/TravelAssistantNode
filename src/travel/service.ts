@@ -14,7 +14,7 @@ export class TravelService{
 
     }
 
-    public findAll() : Promise<Travel[]>{
+    public findAll() : Promise<Result<Travel[]>>{
         return new Promise((resolve : (val : Result<Travel[]>) => void) => {
             this.repository.findAll().then((res) => {
                 resolve(getResult(res))
