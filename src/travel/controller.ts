@@ -1,12 +1,20 @@
-/**
- * Created by dominik.kotecki on 15-07-2016.
- */
-import * as express from "express"
+///<reference path="../../typings/index.d.ts"/>
+import {Router} from 'express';
+import * as expressservestaticcore from "express-serve-static-core"
+import {TravelService} from "./service";
+import {TravelRepository} from "./repository";
+import {travelModel} from "./model";
+import * as mongoose from "mongoose"
 
-var app = new express.Router();
+mongoose.connect("mongodb://localhost/travelAssistant");
 
-app.get("/all", (req, res, next) => {
+const travel = Router();
+const service = new TravelService(new TravelRepository(travelModel));
 
+travel.get("/all", (req, res, next) => {
+    service.findAll().then((result) => {
+       res.status(result.isSuccess ? 200 : 500).json(result);
+    });
 });
 
-export default app;
+export default travel;

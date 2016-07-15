@@ -6,7 +6,8 @@ import {ITravelRepository} from "./repository";
 import {Result, getResult} from "../global/result";
 
 export interface ITravelService{
-
+    findAll() : Promise<Result<Travel[]>>;
+    findBy(obj : Object) : Promise<Result<Travel[]>>;
 }
 
 export class TravelService{

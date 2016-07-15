@@ -5,6 +5,7 @@ import * as path from "path";
 import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
+import travel = require("./travel/controller")
 
 var app = express();
 
