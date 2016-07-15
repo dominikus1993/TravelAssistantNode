@@ -49,4 +49,3 @@ node_modules
 *.js.map
 *.xml
 *.d.ts
-typings.json

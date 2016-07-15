@@ -19,7 +19,6 @@
     "immutable": "^3.8.1",
     "mongodb": "^2.2.1",
     "mongoose": "^4.5.0",
-    "mongoose-mock": "^0.4.0",
     "morgan": "~1.6.1",
     "mpromise": "^0.5.5",
     "q": "^1.4.1",
