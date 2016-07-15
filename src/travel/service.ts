@@ -1,7 +1,9 @@
-import Promise = require("~mongoose~mpromise/index");
+import PromiseM = require("~mongoose~mpromise/index");
+import Promise = require("bluebird");
 import {Travel} from "./model";
 import {Model} from "~mongoose/index";
 import {ITravelRepository} from "./repository";
+import {Result, getResult} from "../global/result";
 
 export interface ITravelService{
 
@@ -13,10 +15,18 @@ export class TravelService{
     }
 
     public findAll() : Promise<Travel[]>{
-        return this.repository.findAll();
+        return new Promise((resolve : (val : Result<Travel[]>) => void) => {
+            this.repository.findAll().then((res) => {
+                resolve(getResult(res))
+            });
+        });
     }
 
-    public findBy(obj : Object) : Promise<Travel[]>{
-        return this.model.find(obj).exec();
+    public findBy(obj : Object) : Promise<Result<Travel[]>>{
+        return new Promise((resolve : (val : Result<Travel[]>) => void) => {
+            this.repository.findBy(obj).then((res) => {
+                resolve(getResult(res))
+            });
+        });
     }
 }
