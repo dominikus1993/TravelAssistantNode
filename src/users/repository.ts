@@ -16,5 +16,9 @@ export class UserReposiitory implements IUserRepository{
         return this.model.findOne(by).exec();
     }
 
+    register(data : {login:string; password:string;}) : Promise<any>{
+        return new this.model({username : data.login, email : "", password : data.password}).save()
+    }
+
     
 }

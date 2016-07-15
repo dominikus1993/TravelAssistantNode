@@ -10,6 +10,8 @@ import * as mongoose from "mongoose"
 import Promise = require("bluebird");
 
 mongoose.Promise = Promise as any;
+mongoose.connect("mongodb://localhost/travelAssistant");
+
 
 var app = express();
 
