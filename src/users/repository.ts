@@ -1,5 +1,5 @@
 
-import {User, Singin} from "./model";
+import {User, LoginData} from "./model";
 import Promise = require("~mongoose~mpromise/index");
 import {Model} from "~mongoose/index";
 export interface IUserRepository{
@@ -8,7 +8,7 @@ export interface IUserRepository{
 
 export class UserReposiitory implements IUserRepository{
 
-    constructor(private model : Model<User>, private signModel : Model<Singin>){
+    constructor(private model : Model<User>, private signModel : Model<LoginData>){
 
     }
 

@@ -6,7 +6,7 @@ export interface User extends Document {
     password:string;
 }
 
-export interface Singin extends Document{
+export interface LoginData extends Document{
     username : string;
     date : Date;
 }
