@@ -13,7 +13,7 @@ mongoose.Promise = Promise as any;
 
 var app = express();
 
-app.use(logger(("dev" as any)));
+app.use(logger("dev" as any));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
