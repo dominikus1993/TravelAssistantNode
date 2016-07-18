@@ -2,35 +2,38 @@
 const gulp = require("gulp");
 const babel = require("gulp-babel");
 const watch = require("gulp-watch");
-const tsb = require('gulp-tsb');
+const typescript = require('gulp-typescript');
 const notify = require('gulp-notify');
 const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync');
 const jasmine = require("gulp-jasmine");
 const reporters = require('jasmine-reporters');
-
+const sourcemap = require("gulp-sourcemaps");
 
 const tsFiles = ["src/**/*.ts", "typings/**/*.ts", "test/**/*.ts"];
 const jsFiles = ["src/**/*.js", "!node_modules/**/*.js", "test/**/*.js"];
-const compilation = tsb.create({
-    target: 'es6',
-    module: 'commonjs',
+
+var tsProject = typescript.createProject({
+    removeComments: true,
     declaration: false,
-    "sourceMap": true,
-    "noImplicitAny": false,
-    "removeComments": false,
-    "preserveConstEnums": false
+    noEmitOnError: true,
+    module: 'commonjs',
+    target : "ES6"
 });
 
+
 function build() {
-    return gulp.src(tsFiles).pipe(compilation()).pipe(gulp.dest(function (file) {
-        return file.base;
-    })).pipe(notify({
-        title: 'DONE COMPILATION TYPESCRIPT',
-        message: 'Compile file  <%= file.relative %>',
-        onLast: true,
-        notifier: function(args){}
-    }));
+    return gulp.src(tsFiles)
+        .pipe(sourcemap.init())
+        .pipe(typescript(tsProject))
+        .pipe(sourcemap.write())
+        .pipe(gulp.dest(function (file) { return file.base; }))
+        .pipe(notify({
+            title: 'DONE COMPILATION TYPESCRIPT',
+            message: 'Compile file  <%= file.relative %>',
+            onLast: true,
+            notifier: function(args){}
+        }));
 }
 
 function buildJs() {
