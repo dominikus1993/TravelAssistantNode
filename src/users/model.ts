@@ -14,9 +14,9 @@ export interface LoginData extends Document{
 }
 
 const UsersSchema = new Schema({
-    username: String,
-    email: String,
-    password: String
+    username: {type : String, required : true, index: {unique : true}},
+    email: {type : String, required : false, index: {unique : true}},
+    password: { type: String, required: true }
 });
 
 const SignInSchema = new Schema({
