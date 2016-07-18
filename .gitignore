@@ -45,8 +45,8 @@ fabric.properties
 
 node_modules
 
-*.js
-*.js.map
+src/**/*.js
+src/**/*.js.map
 *.xml
 *.d.ts
 typings/
