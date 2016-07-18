@@ -11,7 +11,9 @@ export function register(req, res, next){
     service.register(user).then(fullFill => {
         res.status(200).json(fullFill);
     }, onreject => {
-        res.status(404).json(onreject)
+        res.status(400).json(onreject)
+    }).catch(error => {
+        res.status(400).json(error);
     });
 }
 

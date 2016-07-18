@@ -6,7 +6,7 @@ import {encrypt} from "../global/utils";
 
 export interface IUserRepository{
     get(by : Object) : Promise<User>;
-    register(data : {login:string; password:string;}) : Promise<{}>;
+    register(data : {login:string; email: string; password:string;}) : Promise<{}>;
 }
 
 export class UserReposiitory implements IUserRepository{
@@ -19,7 +19,7 @@ export class UserReposiitory implements IUserRepository{
         return this.model.findOne(by).exec();
     }
 
-    register(data : {login:string; password:string;}) : Promise<{}>{
-        return new this.model({username : data.login, email : "", password : encrypt(data.password)}).save()
+    register(data : {login:string; email : string; password:string;}) : Promise<{}>{
+        return new this.model({username : data.login, email : data.email, password : encrypt(data.password)}).save()
     }
 }

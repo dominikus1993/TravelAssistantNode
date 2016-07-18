@@ -18,21 +18,18 @@ export class UserService implements IUserService{
         return undefined;
     }
 
-    register(user:{username:string; password:string; passwordConfirm:string}): Promise<{}> {
+    register(user:{username:string; email : string ;password:string; passwordConfirm:string}): Promise<{}> {
 
         return new Promise((resolve : (val : Result<{}>) => void, reject: (error?: any) => void) => {
             if(user.password === user.passwordConfirm){
-                return this.userRepository.register({login : user.username, password: user.password}).then((onFullFill, onReject) => {
-                    if (onReject) {
-                        reject(onReject);
-                    }
-                    else{
-                        resolve(getResult(true))
-                    }
+                return this.userRepository.register({login : user.username, email: user.email, password: user.password}).then((onFullFill) => {
+                        resolve(getResult(true));
+                }, onReject => {
+                    reject(onReject)
                 });
             }
             else{
-                reject("password confirm not equal to password");
+                reject({code : 1, errmsg : "password confirm not equal to password"});
             }
         });
     }
