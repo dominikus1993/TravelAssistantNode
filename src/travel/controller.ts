@@ -8,8 +8,8 @@ const service = new TravelService(new TravelRepository(travelModel));
 
 export function all(req, res, next){
     service.findAll().then((result) => {
-        res.status(result.isSuccess ? 200 : 500).json(result);
+        res.status(200).json(result);
     }).catch(error => {
-        res.status(500).json(error);
+        res.status(400).json(error);
     });
 }

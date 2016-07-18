@@ -6,6 +6,6 @@ export function isNullOrUndefined(element : any) : boolean{
     return element == null;
 }
 
-export function encrypt(text : string){
-    return crypto.SHA256(text, secret_key);
+export function encrypt(text : string) : string{
+    return crypto.MD5(text, secret_key).toString();
 }
