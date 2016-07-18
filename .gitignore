@@ -47,6 +47,8 @@ node_modules
 
 src/**/*.js
 src/**/*.js.map
+test/**/*.js
+test/**/*.js.map
 *.xml
 *.d.ts
 typings/
