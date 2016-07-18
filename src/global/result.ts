@@ -1,7 +1,4 @@
 import {isNullOrUndefined} from "./utils";
-/**
- * Created by dominik.kotecki on 15-07-2016.
- */
 
 export interface Result<T>{
     isSuccess : boolean;

@@ -5,10 +5,9 @@ import * as path from "path";
 import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
-import travel from "./travel/controller"
-import user from  "./users/controller"
 import * as mongoose from "mongoose"
 import Promise = require("bluebird");
+import router from "./global/router";
 
 mongoose.Promise = Promise as any;
 mongoose.connect("mongodb://localhost/travelAssistant");
@@ -21,8 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/travel", travel);
-app.use("/api/user", user);
+app.use("/api", router);
 
 app.use((req: Request, res: Response, next: Function) => {
     var err: any = new Error("Not Found");
