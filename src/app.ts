@@ -6,6 +6,7 @@ import * as logger from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import travel from "./travel/controller"
+import user from  "./users/controller"
 import * as mongoose from "mongoose"
 import Promise = require("bluebird");
 
@@ -17,15 +18,11 @@ var app = express();
 
 app.use(logger("dev" as any));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "html");
 
 app.use("/api/travel", travel);
-
+app.use("/api/user", user);
 
 app.use((req: Request, res: Response, next: Function) => {
     var err: any = new Error("Not Found");
@@ -37,7 +34,7 @@ app.use((req: Request, res: Response, next: Function) => {
 if (app.get("env") === "development") {
     app.use(function(err: any, req: Request, res: Response, next: Function) {
         res.status(err.status || 500);
-        res.render("error", {
+        res.json({
             message: err.message,
             error: err
         });
@@ -48,7 +45,7 @@ if (app.get("env") === "development") {
 // no stacktraces leaked to user
 app.use(function(err: any, req: Request, res: Response, next: Function) {
     res.status(err.status || 500);
-    res.render("error", {
+    res.json({
         message: err.message,
         error: {}
     });

@@ -16,6 +16,8 @@ const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 
 user.post("/register", (req, res, next) => {
     let user : {username : string, password : string, passwordConfirm : string} = req.body;
+    console.log(user);
+    res.status(200).json(user);
 });
 
 export default user;
