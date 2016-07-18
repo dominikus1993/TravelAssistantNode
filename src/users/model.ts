@@ -9,8 +9,9 @@ export interface User extends Document {
 }
 
 export interface LoginData extends Document {
-    username:string;
+    user:User;
     date:Date;
+    expirationDate : Date;
 }
 
 const UsersSchema = new Schema({
@@ -20,7 +21,7 @@ const UsersSchema = new Schema({
 });
 
 const SignInSchema = new Schema({
-    username: String,
+    user : [{type: Schema.Types.ObjectId, ref: "User"}],
     date: Date,
     expirationDate : Date
 });
