@@ -4,6 +4,7 @@ import {IUserRepository} from "./repository";
 import {Result, getResult} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 import {fullReporter} from "gulp-typescript/release/reporter";
+import {log} from "util";
 
 export interface IUserService {
     login(user:{ username:string, password:string });
@@ -44,7 +45,6 @@ export class UserService implements IUserService {
     }
 
     register(user:{ username:string; email:string; password:string; passwordConfirm:string }):Promise<{}> {
-
         return new Promise((resolve:(val:Result<{}>) => void, reject:(error?:any) => void) => {
             if (user.password === user.passwordConfirm) {
                 return this.userRepository.register({
@@ -60,6 +60,22 @@ export class UserService implements IUserService {
             else {
                 reject({code: 1, errmsg: "password confirm not equal to password"});
             }
+        });
+    }
+
+    checkAuth(loginData:LoginData) {
+        return new Promise((resolve:(val:Result<{}>) => void, reject:(error?:any) => void) => {
+            this.userRepository.getLoginData({_id: loginData._id}).then((fulfilled:LoginData) => {
+                console.log(fulfilled);
+                if (!isNullOrUndefined(fulfilled)) {
+                    resolve(getResult(fulfilled.expirationDate.getTime() > new Date().getTime()));
+                }
+                else {
+                    resolve(getResult(false));
+                }
+            }, rejected => {
+                resolve(getResult(false));
+            });
         });
     }
 
