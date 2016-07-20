@@ -28,12 +28,15 @@ export function login(req, res, next) {
 }
 
 export function checkAuth(req, res, next){
-    let loginData: LoginData = req.body;
+    let loginData:any = req.headers["authorization"] || "";
     service.checkAuth(loginData).then((fullfiled : Result<boolean>) => {
-        res.status(status.HttpStatus.OK).json(fullfiled);
-        if(fullfiled.isSuccess && fullfiled.value){
-            next();
+        if (fullfiled.isSuccess && fullfiled.value) {
+            next()
+        }else{
+            res.status(status.HttpStatus.UNAUTHORIZED).json({code: 401, errmsg: "UNAUTHORIZED"})
         }
+    }, rejected => {
+        res.status(status.HttpStatus.UNAUTHORIZED).json({code: 401, errmsg: rejected});
     });
 }
 

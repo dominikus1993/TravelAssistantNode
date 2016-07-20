@@ -9,6 +9,7 @@ import {log} from "util";
 export interface IUserService {
     login(user:{ username:string, password:string });
     register(user:{ username:string, password:string, passwordConfirm:string });
+    checkAuth(loginData:any);
 }
 
 export class UserService implements IUserService {
@@ -63,10 +64,9 @@ export class UserService implements IUserService {
         });
     }
 
-    checkAuth(loginData:LoginData) {
+    checkAuth(loginData:any) {
         return new Promise((resolve:(val:Result<{}>) => void, reject:(error?:any) => void) => {
-            this.userRepository.getLoginData({_id: loginData._id}).then((fulfilled:LoginData) => {
-                console.log(fulfilled);
+            this.userRepository.getLoginData({_id: loginData}).then((fulfilled:LoginData) => {
                 if (!isNullOrUndefined(fulfilled)) {
                     resolve(getResult(fulfilled.expirationDate.getTime() > new Date().getTime()));
                 }

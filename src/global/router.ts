@@ -6,14 +6,12 @@ import {Router} from "express";
 
 const router = Router();
 
-router.get("/travel/all", all);
+router.get("/travel/all", [checkAuth, all]);
 
 //Auth
 router.post("/user/register", register);
 
 router.post("/user/login", login);
-
-router.post("/user/check", checkAuth);
 
 export default router;
 
