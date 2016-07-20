@@ -31,9 +31,10 @@ export function checkAuth(req, res, next){
     let loginData: LoginData = req.body;
     service.checkAuth(loginData).then((fullfiled : Result<boolean>) => {
         res.status(status.HttpStatus.OK).json(fullfiled);
-    }, rejected => {
-        res.status(status.HttpStatus.NOT_FOUND).json(rejected);
-    })
+        if(fullfiled.isSuccess && fullfiled.value){
+            next();
+        }
+    });
 }
 
 

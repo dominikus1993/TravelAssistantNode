@@ -8,9 +8,9 @@ import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose"
 import Promise = require("bluebird");
 import router from "./global/router";
-
+import {mongoDbUrl} from "./global/config";
 mongoose.Promise = Promise as any;
-mongoose.connect("mongodb://localhost/travelAssistant");
+mongoose.connect(mongoDbUrl);
 
 
 var app = express();
