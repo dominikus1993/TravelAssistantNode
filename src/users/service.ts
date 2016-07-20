@@ -3,8 +3,6 @@ import Promise = require("bluebird")
 import {IUserRepository} from "./repository";
 import {Result, getResult, getError} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
-import {fullReporter} from "gulp-typescript/release/reporter";
-import {log} from "util";
 
 export interface IUserService {
     login(user:{ username:string, password:string });
