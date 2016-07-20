@@ -4,7 +4,7 @@ import {UserService} from "./service";
 import {UserReposiitory} from "./repository";
 import {userModel, loginDataModel, LoginData} from "./model";
 import * as status from "../global/constants"
-import {Result} from "../global/result";
+import {Result, getResult, getError} from "../global/result";
 const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 
 export function register(req, res, next){
@@ -20,9 +20,9 @@ export function register(req, res, next){
 
 export function login(req, res, next) {
     let user: {username : string, password : string} = req.body;
-    service.login(user).then((fulfilled) => {
+    service.login(user).then((fulfilled : Result<LoginData>) => {
         res.status(status.HttpStatus.OK).json(fulfilled);
-    }).catch(error => {
+    }).catch((error ?: any) => {
         res.status(status.HttpStatus.NOT_FOUND).json(error);
     });
 }
@@ -33,10 +33,12 @@ export function checkAuth(req, res, next){
         if (fullfiled.isSuccess && fullfiled.value) {
             next()
         }else{
-            res.status(status.HttpStatus.UNAUTHORIZED).json({code: 401, errmsg: "UNAUTHORIZED"})
+            res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: "Unauthorized"}));
         }
     }, rejected => {
-        res.status(status.HttpStatus.UNAUTHORIZED).json({code: 401, errmsg: rejected});
+        res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: rejected}));
+    }).catch(error => {
+        res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: error}))
     });
 }
 

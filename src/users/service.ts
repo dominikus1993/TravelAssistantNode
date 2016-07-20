@@ -1,7 +1,7 @@
 import {LoginData, User} from "./model";
 import Promise = require("bluebird")
 import {IUserRepository} from "./repository";
-import {Result, getResult} from "../global/result";
+import {Result, getResult, getError} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 import {fullReporter} from "gulp-typescript/release/reporter";
 import {log} from "util";
@@ -26,22 +26,22 @@ export class UserService implements IUserService {
                         resolve(getResult(fulfilled));
                     }
                     else {
-                        reject({code: 1, errmsg: "password is incorect"})
+                        reject(getError({code: 1, errmsg: "password is incorect"}))
                     }
                 }
                 else {
-                    reject({code: 1, errmsg: "username is incorect"})
+                    reject(getError({code: 1, errmsg: "username is incorect"}))
                 }
             });
         }).then((fulfilled:Result<User>) => {
             if (fulfilled.isSuccess) {
-                return this.userRepository.saveLoginData({
+                return getResult(this.userRepository.saveLoginData({
                     user: fulfilled.value,
                     date: new Date(),
                     expirationDate: new Date().setDate(new Date().getDate() + 6)
-                });
+                }));
             }
-            return Promise.reject({code: 2, errmsg: "cannot login"});
+            return Promise.reject(getError({code: 2, errmsg: "cannot login"}));
         });
     }
 
@@ -55,11 +55,11 @@ export class UserService implements IUserService {
                 }).then((fulfilled) => {
                     resolve(getResult(true));
                 }, onReject => {
-                    reject(onReject)
+                    reject(getError(onReject))
                 });
             }
             else {
-                reject({code: 1, errmsg: "password confirm not equal to password"});
+                reject(getError({code: 1, errmsg: "password confirm not equal to password"}));
             }
         });
     }
