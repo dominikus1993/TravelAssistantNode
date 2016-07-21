@@ -1,6 +1,7 @@
 ///<reference path="../typings/index.d.ts"/>
+import {getError, getResult} from "../src/global/result";
 import {isNullOrUndefined} from "../src/global/utils";
-import {getResult, getError} from "../src/global/result";
+
 describe("test utils functions", () => {
     describe("test function that recognize if value is null or undefined", () => {
         it("value is null", () => {
