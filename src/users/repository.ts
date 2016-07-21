@@ -5,7 +5,7 @@ import Promise = require("~mongoose~mpromise/index");
 
 export interface IUserRepository {
     get(by: Object): Promise<User>;
-    register(data: {login: string; email: string; password: string; }): Promise<{}>;
+    register(data: {username: string; email: string; password: string}): Promise<{}>;
     saveLoginData(data: Object): Promise<{}>;
     getLoginData(by: Object): Promise<LoginData>;
 }
@@ -28,7 +28,7 @@ export class UserReposiitory implements IUserRepository {
         return this.loginDataModel.findOne(by).exec();
     }
 
-    public register(data: {login: string; email: string; password: string}): Promise<{}> {
-        return new this.model({email : data.email, password : encrypt(data.password), username : data.login}).save();
+    public register(data: {username: string; email: string; password: string}): Promise<{}> {
+        return new this.model({email : data.email, password : encrypt(data.password), username : data.username}).save();
     }
 }

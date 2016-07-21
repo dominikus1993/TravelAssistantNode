@@ -67,7 +67,7 @@ describe("test utils functions", () => {
 
 
         describe("put error to getError message function", () => {
-            const testResult = getError({errmsg : "mess", code : 401});
+            const testResult = getError(new Error("Unathorized access"));
             it("isSuccess should be true", () => {
                 expect(testResult.isSuccess).toBeFalsy();
             });
@@ -81,10 +81,7 @@ describe("test utils functions", () => {
                 expect(testResult.message).not.toBeNull();
 
                 it("error message should not be null", () => {
-                    expect(testResult.message.errmsg).not.toBeNull()
-                });
-                it("code should equal 401", () => {
-                   expect(testResult.message.code).toEqual(401);
+                    expect(testResult.message).not.toBeNull();
                 });
             });
         });

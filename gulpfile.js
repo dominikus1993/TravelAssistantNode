@@ -67,12 +67,11 @@ gulp.task("lint", function () {
    return lint();
 });
 
-gulp.task("compile", ["build", "lint"], function () {
+gulp.task("compile", ["build"], function () {
     return buildJs();
 });
 
-
-gulp.task("test", ["compile"], function () {
+gulp.task("test", ["compile", "lint"], function () {
     return gulp.src("test/**/*.js").pipe(jasmine({
         reporter: new reporters.NUnitXmlReporter()
     }));

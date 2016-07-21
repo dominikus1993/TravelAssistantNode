@@ -34,7 +34,7 @@ export function checkAuth(req, res, next) {
             req.user = fullfiled.value;
             next();
         } else {
-            res.status(status.UNAUTHORIZED).json(getError({code: status.UNAUTHORIZED, errmsg: "Unauthorized"})).end();
+            res.status(status.UNAUTHORIZED).json(getError(new Error("Unathorized access"))).end();
         }
     }, rejected => {
         res.status(status.UNAUTHORIZED).json(rejected).end();

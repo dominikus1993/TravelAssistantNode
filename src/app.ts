@@ -37,14 +37,14 @@ if (app.get("env") === "development") {
     // noinspection TypeScriptValidateTypes
     app.use(function(err: any, req: Request, res: Response, next: Function) {
         res.status(err.status || 500);
-        res.json(getError({code : 500, errmsg : err.message}));
+        res.json(getError(err));
     });
 }
 
 // noinspection TypeScriptValidateTypes
 app.use(function(err: any, req: Request, res: Response, next: Function) {
     res.status(err.status || 500);
-    res.json(getError({code : 500, errmsg : err.message}));
+    res.json(getError(err));
 });
 
 module.exports = app;
