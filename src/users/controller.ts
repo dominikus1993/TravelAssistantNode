@@ -37,9 +37,9 @@ export function checkAuth(req, res, next){
             res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: "Unauthorized"})).end();
         }
     }, rejected => {
-        res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: rejected})).end();
+        res.status(status.HttpStatus.UNAUTHORIZED).json(rejected).end();
     }).catch(error => {
-        res.status(status.HttpStatus.UNAUTHORIZED).json(getError({code: 401, errmsg: error})).end();
+        res.status(status.HttpStatus.UNAUTHORIZED).json(error).end();
     });
 }
 

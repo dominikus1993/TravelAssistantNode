@@ -67,8 +67,7 @@ export class UserService implements IUserService {
             }
             return Promise.reject(getError({errmsg: "Unathorized access", code: 401}));
         }).then(fullfiled => {
-            console.log(fullfiled);
-            return Promise.resolve(this.userRepository.get({_id : fullfiled}));
+            return this.userRepository.get({_id : fullfiled});
         }).then(fulfiiled => {
             return getResult(fulfiiled);
         });
