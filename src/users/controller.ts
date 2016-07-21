@@ -1,13 +1,14 @@
 import Promise = require("bluebird");
-import {UserService} from "./service";
+import * as status from "../global/constants";
+import {LoginData, loginDataModel, User, userModel} from "./model";
 import {UserReposiitory} from "./repository";
-import {userModel, loginDataModel, LoginData, User} from "./model";
-import * as status from "../global/constants"
+import {UserService} from "./service";
 import {getError, Result} from "../global/result";
+
 const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 
-export function register(req, res, next){
-    let user : {username : string, email: string, password : string, passwordConfirm : string} = req.body;
+export function register(req, res, next) {
+    let user: {username: string, email: string, password: string, passwordConfirm: string} = req.body;
     service.register(user).then(fulfilled => {
         res.status(status.OK).json(fulfilled).end();
     }, rejected => {
@@ -18,8 +19,8 @@ export function register(req, res, next){
 }
 
 export function login(req, res, next) {
-    let user: {username: string, password : string} = req.body;
-    service.login(user).then((fulfilled : Result<LoginData>) => {
+    let user: {username: string, password: string} = req.body;
+    service.login(user).then((fulfilled: Result<LoginData>) => {
         res.status(status.OK).json(fulfilled).end();
     }).catch((error ?: any) => {
         res.status(status.NOT_FOUND).json(error).end();
@@ -27,13 +28,13 @@ export function login(req, res, next) {
 }
 
 export function checkAuth(req, res, next) {
-    let loginData:any = req.headers["authorization"] || "";
+    let loginData: string = req.headers["authorization"] || "";
     service.checkAuth(loginData).then((fullfiled: Result<User>) => {
         if (fullfiled.isSuccess) {
             req.user = fullfiled.value;
             next();
         } else {
-            res.status(status.UNAUTHORIZED).json(getError({code: 401, errmsg: "Unauthorized"})).end();
+            res.status(status.UNAUTHORIZED).json(getError({code: status.UNAUTHORIZED, errmsg: "Unauthorized"})).end();
         }
     }, rejected => {
         res.status(status.UNAUTHORIZED).json(rejected).end();

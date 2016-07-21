@@ -1,8 +1,10 @@
 import Promise = require("bluebird");
+import * as status from "../global/constants";
 import {getError, getResult} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 import {LoginData, User} from "./model";
 import {IUserRepository} from "./repository";
+
 
 export interface IUserService {
     login(user: { username: string, password: string });
@@ -53,7 +55,7 @@ export class UserService implements IUserService {
                 return getError(rejected);
             });
         } else {
-            return Promise.reject(getError({code: 1, errmsg: "password confirm not equal to password"}));
+            return Promise.reject(getError({code: status.UNAUTHORIZED, errmsg: "password confirm not equal to password"}));
         }
     }
 
@@ -62,7 +64,7 @@ export class UserService implements IUserService {
             if (!isNullOrUndefined(fulfilled) && fulfilled.expirationDate.getTime() > new Date().getTime()) {
                 return Promise.resolve(fulfilled.user);
             }
-            return Promise.reject(getError({errmsg: "Unathorized access", code: 401}));
+            return Promise.reject(getError({code: status.UNAUTHORIZED, errmsg: "Unathorized access"}));
         }).then(fullfiled => {
             return this.userRepository.get({_id : fullfiled});
         }).then(fulfiiled => {

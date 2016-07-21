@@ -1,18 +1,17 @@
-/// <reference path="../typings/index.d.ts" />
+import Promise = require("bluebird");
+import * as bodyParser from "body-parser";
+import * as cookieParser from "cookie-parser";
 import {Request, Response} from "express";
 import * as express from "express";
-import * as path from "path";
-import * as logger from "morgan";
-import * as cookieParser from "cookie-parser";
-import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
-import Promise = require("bluebird");
-import router from "./global/router";
+import * as logger from "morgan";
+import * as path from "path";
 import {mongoDbUrl} from "./global/config";
 import {getError} from "./global/result";
+import router from "./global/router";
+
 mongoose.Promise = Promise as any;
 mongoose.connect(mongoDbUrl);
-
 
 const app = express();
 
@@ -47,6 +46,5 @@ app.use(function(err: any, req: Request, res: Response, next: Function) {
     res.status(err.status || 500);
     res.json(getError({code : 500, errmsg : err.message}));
 });
-
 
 module.exports = app;

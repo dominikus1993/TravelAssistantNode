@@ -1,8 +1,8 @@
 ///<reference path="../../typings/index.d.ts"/>
 import PromiseM = require("~mongoose~mpromise/index");
 import Promise = require("bluebird");
-import {Travel} from "./model";
 import {Model} from "~mongoose/index";
+import {Travel} from "./model";
 import {ITravelRepository} from "./repository";
 import {Result, getResult} from "../global/result";
 

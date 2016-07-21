@@ -1,4 +1,3 @@
-/// <reference path="../../typings/index.d.ts" />
 import {encrypt} from "../global/utils";
 import {LoginData, User} from "./model";
 import {Model} from "~mongoose/index";
