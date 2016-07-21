@@ -4,11 +4,11 @@ export interface Result<T>{
     isSuccess: boolean;
     isError: boolean;
     value: T;
-    message: string;
+    message: Error;
 }
 
 export function getError<T>(error: Error): Result<T>  {
-    return {isError : true, isSuccess : false,  message : JSON.stringify(error), value : null};
+    return {isError : true, isSuccess : false,  message : error, value : null};
 }
 
 export function getResult<T>(element: T): Result<T> {

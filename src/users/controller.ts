@@ -1,6 +1,6 @@
 import Promise = require("bluebird");
 import * as status from "../global/constants";
-import {LoginData, loginDataModel, User, userModel} from "./model";
+import {loginDataModel, LoginData, userModel, User} from "./model";
 import {UserReposiitory} from "./repository";
 import {UserService} from "./service";
 import {getError, Result} from "../global/result";
