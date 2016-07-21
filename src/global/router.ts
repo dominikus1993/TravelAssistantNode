@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/travel/all", [checkAuth, all]);
 
-//Auth
+// Auth
 router.post("/user/register", register);
 
 router.post("/user/login", login);

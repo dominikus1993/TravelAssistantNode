@@ -1,35 +1,35 @@
 
-import {User, LoginData} from "./model";
-import Promise = require("~mongoose~mpromise/index");
-import {Model} from "~mongoose/index";
 import {encrypt} from "../global/utils";
+import {LoginData, User} from "./model";
+import {Model} from "~mongoose/index";
+import Promise = require("~mongoose~mpromise/index");
 
-export interface IUserRepository{
-    get(by : Object) : Promise<User>;
-    register(data : {login:string; email: string; password:string;}) : Promise<{}>;
-    saveLoginData(data : Object) : Promise<{}>;
-    getLoginData(by : Object) : Promise<LoginData>;
+export interface IUserRepository {
+    get(by: Object): Promise<User>;
+    register(data: {login: string; email: string; password: string; }): Promise<{}>;
+    saveLoginData(data: Object): Promise<{}>;
+    getLoginData(by: Object): Promise<LoginData>;
 }
 
-export class UserReposiitory implements IUserRepository{
+export class UserReposiitory implements IUserRepository {
 
-    constructor(private model : Model<User>, private loginDataModel : Model<LoginData>){
+    constructor(private model: Model<User>, private loginDataModel: Model<LoginData>) {
 
     }
 
-    get(by:Object):Promise<User> {
+    public get(by: Object): Promise<User> {
         return this.model.findOne(by).exec();
     }
 
-    saveLoginData(data : Object){
+    public saveLoginData(data: Object) {
         return new this.loginDataModel(data).save();
     }
 
-    getLoginData(by : Object) : Promise<LoginData>{
+    public getLoginData(by : Object) : Promise<LoginData> {
         return this.loginDataModel.findOne(by).exec();
     }
 
-    register(data : {login:string; email : string; password:string;}) : Promise<{}>{
-        return new this.model({username : data.login, email : data.email, password : encrypt(data.password)}).save()
+    public register(data: {login: string; email: string; password: string}): Promise<{}> {
+        return new this.model({email : data.email, password : encrypt(data.password), username : data.login}).save();
     }
 }

@@ -3,7 +3,6 @@ import {TravelService} from "./service";
 import {TravelRepository} from "./repository";
 import {travelModel} from "./model";
 import Promise = require("bluebird");
-import {User} from "../users/model";
 
 const service = new TravelService(new TravelRepository(travelModel));
 

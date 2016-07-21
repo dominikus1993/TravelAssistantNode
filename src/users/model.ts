@@ -1,29 +1,29 @@
 ///<reference path="../../typings/index.d.ts"/>
-import {Document, Schema, model}  from "mongoose"
 import {Model} from "~mongoose/index";
+import {Document, Schema, model}  from "mongoose";
 
 export interface User extends Document {
-    username:string;
-    email:string;
-    password:string;
+    username: string;
+    email: string;
+    password: string;
 }
 
 export interface LoginData extends Document {
-    user:string;
-    date:Date;
-    expirationDate : Date;
+    user: string;
+    date: Date;
+    expirationDate: Date;
 }
 
 const UsersSchema = new Schema({
-    username: {type: String, required: true, index: {unique: true}},
-    email: {type: String, required: false, index: {unique: true}},
-    password: {type: String, required: true}
+    email: {index: {unique: true}, required: false, type: String},
+    password: { required: true, type: String},
+    username: { index: {unique: true}, required: true, type: String},
 });
 
 const SignInSchema = new Schema({
-    user : {type: Schema.Types.ObjectId, ref: "User"},
     date: Date,
-    expirationDate : Date
+    expirationDate : Date,
+    user : {ref: "User", type: Schema.Types.ObjectId},
 });
 
 export const userModel = model<User>("User", UsersSchema);
