@@ -15,21 +15,26 @@ mongoose.connect(mongoDbUrl);
 
 var app = express();
 
-app.use(logger("dev" as any));
+//noinspection TypeScriptValidateTypes
+app.use(logger("dev" as any) as any);
+//noinspection TypeScriptValidateTypes
 app.use(bodyParser.json());
+//noinspection TypeScriptValidateTypes
 app.use(bodyParser.urlencoded({ extended: true }));
+//noinspection TypeScriptValidateTypes
 app.use(cookieParser());
-
+//noinspection TypeScriptValidateTypes
 app.use("/api", router);
-
+//noinspection TypeScriptValidateTypes
 app.use((req: Request, res: Response, next: Function) => {
     var err: any = new Error("Not Found");
     err.status = 404;
     next(err);
 });
 
-
+//noinspection TypeScriptValidateTypes
 if (app.get("env") === "development") {
+    //noinspection TypeScriptValidateTypes
     app.use(function(err: any, req: Request, res: Response, next: Function) {
         res.status(err.status || 500);
         res.json({
@@ -39,8 +44,7 @@ if (app.get("env") === "development") {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+//noinspection TypeScriptValidateTypes
 app.use(function(err: any, req: Request, res: Response, next: Function) {
     res.status(err.status || 500);
     res.json({
