@@ -14,7 +14,7 @@ export function register(req, res, next){
     }, rejected => {
         res.status(status.HttpStatus.NOT_FOUND).json(rejected)
     }).catch(error => {
-        res.status(status.HttpStatus.NOT_FOUND).json(error);
+        res.status(status.HttpStatus.NOT_FOUND).json(getError(error));
     });
 }
 

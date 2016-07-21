@@ -44,22 +44,20 @@ export class UserService implements IUserService {
     }
 
     register(user: { username: string; email: string; password: string; passwordConfirm: string }): Promise<{}> {
-        return new Promise((resolve: (val: Result<{}>) => void, reject: (error?: any) => void) => {
             if (user.password === user.passwordConfirm) {
-                return this.userRepository.register({
+                return Promise.resolve(this.userRepository.register({
                     login: user.username,
                     email: user.email,
                     password: user.password
-                }).then((fulfilled) => {
-                    resolve(getResult(true));
-                }, onReject => {
-                    reject(getError(onReject))
+                })).then(fulfilled => {
+                    return getResult(fulfilled);
+                }, rejected => {
+                    return getError(rejected);
                 });
             }
             else {
-                reject(getError({ code: 1, errmsg: "password confirm not equal to password" }));
+                return Promise.reject(getError({ code: 1, errmsg: "password confirm not equal to password" }));
             }
-        });
     }
 
     checkAuth(loginData: any) {
