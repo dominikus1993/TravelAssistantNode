@@ -1,18 +1,16 @@
-///<reference path="../../typings/index.d.ts"/>
 import Promise = require("~mongoose~mpromise/index");
 import {Travel} from "./model";
 import {Model} from "~mongoose/index";
 
-
-export interface ITravelRepository{
+export interface ITravelRepository {
     findAll(): Promise<Travel[]>;
     findBy(obj: Object): Promise<Travel[]>;
     save(travel: Travel): any;
 }
 
-export class TravelRepository implements ITravelRepository{
+export class TravelRepository implements ITravelRepository {
 
-    constructor(private model: Model<Travel>){
+    constructor(private model: Model<Travel>) {
 
     }
 
@@ -24,7 +22,7 @@ export class TravelRepository implements ITravelRepository{
         return this.model.find(obj).exec();
     }
 
-    public save(travel: Travel){
+    public save(travel: Travel) {
         return new this.model(travel).save();
     }
 }

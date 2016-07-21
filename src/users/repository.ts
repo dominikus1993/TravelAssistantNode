@@ -1,4 +1,4 @@
-
+/// <reference path="../../typings/index.d.ts" />
 import {encrypt} from "../global/utils";
 import {LoginData, User} from "./model";
 import {Model} from "~mongoose/index";
@@ -25,7 +25,7 @@ export class UserReposiitory implements IUserRepository {
         return new this.loginDataModel(data).save();
     }
 
-    public getLoginData(by : Object) : Promise<LoginData> {
+    public getLoginData(by: Object): Promise<LoginData> {
         return this.loginDataModel.findOne(by).exec();
     }
 

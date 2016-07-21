@@ -1,5 +1,5 @@
-import * as crypto from "crypto-js"
 import {secret} from "./config";
+import * as crypto from "crypto-js";
 
 export function isNullOrUndefined(element: any): boolean {
     return element == null;

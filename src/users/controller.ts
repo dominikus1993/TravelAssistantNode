@@ -1,4 +1,3 @@
-///<reference path="../../typings/index.d.ts"/>
 import Promise = require("bluebird");
 import {UserService} from "./service";
 import {UserReposiitory} from "./repository";
@@ -42,6 +41,3 @@ export function checkAuth(req, res, next) {
         res.status(status.UNAUTHORIZED).json(error).end();
     });
 }
-
-
-

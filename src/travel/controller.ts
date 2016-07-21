@@ -1,12 +1,11 @@
-///<reference path="../../typings/index.d.ts"/>
-import {TravelService} from "./service";
-import {TravelRepository} from "./repository";
-import {travelModel} from "./model";
 import Promise = require("bluebird");
+import {travelModel} from "./model";
+import {TravelRepository} from "./repository";
+import {TravelService} from "./service";
 
 const service = new TravelService(new TravelRepository(travelModel));
 
-export function all(req, res, next){
+export function all(req, res, next) {
     service.findAll().then((result) => {
         res.status(200).json(result).end();
     }).catch(error => {

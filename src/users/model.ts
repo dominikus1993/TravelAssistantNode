@@ -1,6 +1,6 @@
-///<reference path="../../typings/index.d.ts"/>
-import {Model} from "~mongoose/index";
+/// <reference path="../../typings/index.d.ts" />
 import {Document, Schema, model}  from "mongoose";
+import {Model} from "~mongoose/index";
 
 export interface User extends Document {
     username: string;
