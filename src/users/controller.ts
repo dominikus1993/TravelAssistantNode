@@ -3,7 +3,7 @@ import {UserService} from "./service";
 import {UserReposiitory} from "./repository";
 import {userModel, loginDataModel, LoginData, User} from "./model";
 import * as status from "../global/constants"
-import {Result, getResult, getError} from "../global/result";
+import {Result} from "../global/result";
 const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 
 export function register(req, res, next){
