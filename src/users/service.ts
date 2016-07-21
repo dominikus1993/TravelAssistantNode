@@ -5,32 +5,32 @@ import {Result, getResult, getError} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 
 export interface IUserService {
-    login(user: { username: string, password: string });
-    register(user: { username: string, password: string, passwordConfirm: string });
-    checkAuth(loginData: any);
+    login(user:{ username:string, password:string });
+    register(user:{ username:string, password:string, passwordConfirm:string });
+    checkAuth(loginData:string);
 }
 
 export class UserService implements IUserService {
 
-    constructor(private userRepository: IUserRepository) {
+    constructor(private userRepository:IUserRepository) {
 
     }
 
-    login(user: { username: string; password: string }) {
-        return Promise.resolve(this.userRepository.get({ username: user.username })).then(fulfilled => {
+    login(user:{ username:string; password:string }) {
+        return Promise.resolve(this.userRepository.get({username: user.username})).then(fulfilled => {
             if (!isNullOrUndefined(fulfilled)) {
                 if (fulfilled.password === encrypt(user.password)) {
                     return Promise.resolve(fulfilled);
                 }
                 else {
 
-                    return Promise.reject({ code: 1, errmsg: "password is incorect" });
+                    return Promise.reject({code: 1, errmsg: "password is incorect"});
                 }
             }
             else {
-                return Promise.reject({ code: 1, errmsg: "username is incorect" });
+                return Promise.reject({code: 1, errmsg: "username is incorect"});
             }
-        }).then((fulfilled: User) => {
+        }).then((fulfilled:User) => {
             return this.userRepository.saveLoginData({
                 user: fulfilled,
                 date: new Date(),
@@ -43,7 +43,7 @@ export class UserService implements IUserService {
         })
     }
 
-    register(user: { username: string; email: string; password: string; passwordConfirm: string }): Promise<{}> {
+    register(user:{ username:string; email:string; password:string; passwordConfirm:string }):Promise<{}> {
         if (user.password === user.passwordConfirm) {
             return Promise.resolve(this.userRepository.register({
                 login: user.username,
@@ -56,22 +56,22 @@ export class UserService implements IUserService {
             });
         }
         else {
-            return Promise.reject(getError({ code: 1, errmsg: "password confirm not equal to password" }));
+            return Promise.reject(getError({code: 1, errmsg: "password confirm not equal to password"}));
         }
     }
 
-    checkAuth(loginData: any) {
-        return Promise.resolve(this.userRepository.getLoginData({ _id: loginData })).then((fulfilled: LoginData) => {
-            if (!isNullOrUndefined(fulfilled)) {
-                return getResult(fulfilled.expirationDate.getTime() > new Date().getTime());
+    checkAuth(loginData:string) {
+        return Promise.resolve(this.userRepository.getLoginData({_id: loginData})).then((fulfilled:LoginData) => {
+            if (!isNullOrUndefined(fulfilled) && fulfilled.expirationDate.getTime() > new Date().getTime()) {
+                return Promise.resolve(fulfilled.user);
             }
-            else {
-                return getResult(false);
-            }
-        }, rejected => {
-            return getResult(false);
+            return Promise.reject(getError({errmsg: "Unathorized access", code: 401}));
+        }).then(fullfiled => {
+            console.log(fullfiled);
+            return Promise.resolve(this.userRepository.get({_id : fullfiled}));
+        }).then(fulfiiled => {
+            return getResult(fulfiiled);
         });
-
     }
 
 }

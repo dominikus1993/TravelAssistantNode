@@ -31,6 +31,6 @@ export class TravelService implements ITravelService {
     }
 
     public save(travel:Travel):any {
-        return undefined;
+        return Promise.resolve(this.repository.save(travel));
     }
 }
