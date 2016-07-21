@@ -78,12 +78,18 @@ gulp.task("test", ["compile"], function () {
     }));
 });
 
-gulp.task("nodemon", ['watch'], function(cb){
+gulp.task("watch", function () {
+   gulp.watch(tsFiles, ["compile"]);
+});
+
+gulp.task("nodemon", ['compile'], function(cb){
     var started = false;
 
-    return nodemon({
+    nodemon({
         script: 'src/bin/www',
-        watch: jsFiles
+        tasks : ["compile"],
+        watch : tsFiles,
+        ext : "ts"
     }).on('start', function () {
         if (!started) {
             cb();
@@ -98,10 +104,6 @@ gulp.task("nodemon", ['watch'], function(cb){
     });
 });
 
-
-gulp.task("watch", function () {
-    gulp.watch(tsFiles, ["compile"]);
-});
 
 gulp.task('sync', ['nodemon'], function () {
     browserSync.init(null, {
