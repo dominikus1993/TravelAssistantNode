@@ -9,9 +9,11 @@ const browserSync = require('browser-sync');
 const jasmine = require("gulp-jasmine");
 const reporters = require('jasmine-reporters');
 const sourcemap = require("gulp-sourcemaps");
+const tslint = require("gulp-tslint");
 
-const tsFiles = ["src/**/*.ts", "typings/**/*.ts", "test/**/*.ts"];
+const tsFiles = ["src/**/*.ts", "test/**/*.ts"];
 const jsFiles = ["src/**/*.js", "!node_modules/**/*.js", "test/**/*.js"];
+const filesToLint = ["src/**/*.ts", "test/**/*.ts"];
 
 var tsProject = typescript.createProject({
     removeComments: true,
@@ -21,6 +23,14 @@ var tsProject = typescript.createProject({
     target : "ES6"
 });
 
+
+function lint(){
+    return gulp.src(filesToLint)
+        .pipe(tslint({
+            formatter: "json"
+        }))
+        .pipe(tslint.report({emitError: false}));
+}
 
 function build() {
     return gulp.src(tsFiles)
@@ -53,7 +63,11 @@ gulp.task("build", function() {
     return build();
 });
 
-gulp.task("compile", ["build"], function () {
+gulp.task("lint", function () {
+   return lint();
+});
+
+gulp.task("compile", ["build", "lint"], function () {
     return buildJs();
 });
 
