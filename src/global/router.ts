@@ -1,11 +1,11 @@
-import {all} from "../travel/controller";
+import {all, create} from "../travel/controller";
 import {checkAuth, login, register} from  "../users/controller";
 import {Router} from "express";
-import * as expressservestaticcore from "express-serve-static-core";
 
 const router = Router();
 
 router.get("/travel/all", [checkAuth, all]);
+router.post("/travel/create", [checkAuth, create]);
 
 // Auth
 router.post("/user/register", register);

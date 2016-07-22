@@ -29,6 +29,10 @@ export class UserReposiitory implements IUserRepository {
     }
 
     public register(data: {username: string; email: string; password: string}): Promise<{}> {
-        return new this.model({email : data.email, password : encrypt(data.password), username : data.username}).save() as any as Promise<{}>;
+        return new this.model({
+            email: data.email,
+            password: encrypt(data.password),
+            username: data.username,
+        }).save() as any as Promise<{}>;
     }
 }
