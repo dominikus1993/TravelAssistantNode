@@ -1,4 +1,3 @@
-import Promise = require("bluebird");
 import {travelModel} from "./model";
 import {TravelRepository} from "./repository";
 import {TravelService} from "./service";

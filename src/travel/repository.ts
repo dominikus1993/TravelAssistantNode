@@ -1,7 +1,6 @@
-/// <reference path="../../typings/index.d.ts" />
-import Promise = require("~mongoose~mpromise/index");
 import {Travel} from "./model";
-import {Model} from "~mongoose/index";
+import * as Promise from "bluebird";
+import {Model}  from "mongoose";
 
 export interface ITravelRepository {
     findAll(): Promise<Travel[]>;
@@ -16,11 +15,11 @@ export class TravelRepository implements ITravelRepository {
     }
 
     public findAll(): Promise<Travel[]> {
-        return this.model.find({}).exec();
+        return this.model.find({}).exec() as any as Promise<Travel[]>;
     }
 
     public findBy(obj: Object): Promise<Travel[]> {
-        return this.model.find(obj).exec();
+        return this.model.find(obj).exec() as any as Promise<Travel[]>;
     }
 
     public save(travel: Travel) {

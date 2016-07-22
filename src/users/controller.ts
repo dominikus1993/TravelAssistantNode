@@ -1,9 +1,8 @@
-import Promise = require("bluebird");
 import * as status from "../global/constants";
-import {loginDataModel, LoginData, userModel, User} from "./model";
+import {Result, getError} from "../global/result";
+import {LoginData, User, loginDataModel, userModel} from "./model";
 import {UserReposiitory} from "./repository";
 import {UserService} from "./service";
-import {getError, Result} from "../global/result";
 
 const service = new UserService(new UserReposiitory(userModel, loginDataModel));
 

@@ -1,10 +1,8 @@
 import Promise = require("bluebird");
-import * as status from "../global/constants";
 import {getError, getResult} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 import {LoginData, User} from "./model";
 import {IUserRepository} from "./repository";
-
 
 export interface IUserService {
     login(user: { username: string, password: string });

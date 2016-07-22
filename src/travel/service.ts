@@ -1,7 +1,7 @@
-import Promise = require("bluebird");
+import {Result, getResult} from "../global/result";
 import {Travel} from "./model";
 import {ITravelRepository} from "./repository";
-import {Result, getResult} from "../global/result";
+import * as Promise from "bluebird";
 
 export interface ITravelService {
     findAll(): Promise<Result<Travel[]>>;

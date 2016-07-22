@@ -1,8 +1,7 @@
-/// <reference path="../../typings/index.d.ts" />
 import {encrypt} from "../global/utils";
 import {LoginData, User} from "./model";
-import {Model} from "~mongoose/index";
-import Promise = require("~mongoose~mpromise/index");
+import * as Promise from "bluebird";
+import {Model}  from "mongoose";
 
 export interface IUserRepository {
     get(by: Object): Promise<User>;
@@ -18,18 +17,18 @@ export class UserReposiitory implements IUserRepository {
     }
 
     public get(by: Object): Promise<User> {
-        return this.model.findOne(by).exec();
+        return this.model.findOne(by).exec() as any as Promise<User>;
     }
 
     public saveLoginData(data: Object) {
-        return new this.loginDataModel(data).save();
+        return new this.loginDataModel(data).save() as any as Promise<{}>;
     }
 
     public getLoginData(by: Object): Promise<LoginData> {
-        return this.loginDataModel.findOne(by).exec();
+        return this.loginDataModel.findOne(by).exec() as any as Promise<LoginData>;
     }
 
     public register(data: {username: string; email: string; password: string}): Promise<{}> {
-        return new this.model({email : data.email, password : encrypt(data.password), username : data.username}).save();
+        return new this.model({email : data.email, password : encrypt(data.password), username : data.username}).save() as any as Promise<{}>;
     }
 }

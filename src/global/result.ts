@@ -14,4 +14,3 @@ export function getError<T>(error: Error): Result<T>  {
 export function getResult<T>(element: T): Result<T> {
     return {isError : false, isSuccess : !isNullOrUndefined(element), message : null, value : element};
 }
-

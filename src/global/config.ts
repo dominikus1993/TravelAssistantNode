@@ -10,5 +10,5 @@ export const errorConfig = {
     };
     Object.getOwnPropertyNames(this).forEach(storeKey, this);
     return alt;
-  }
+  },
 };

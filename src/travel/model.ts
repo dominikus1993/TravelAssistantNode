@@ -1,10 +1,5 @@
-import {Document, Schema, model}  from "mongoose";
-import {Model} from "~mongoose/index";
 import {User} from "../users/model";
-import Promise = require("~mongoose~mpromise/index");
-
-
-
+import {Document, Schema, model}  from "mongoose";
 
 export interface Travel extends Document {
     from: string;
@@ -39,4 +34,3 @@ const ReservationSchema = new Schema({
 });
 
 export const travelModel = model<Travel>("Travel", TravelSchema);
-
