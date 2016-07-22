@@ -1,4 +1,3 @@
-/// <reference path="../../typings/index.d.ts" />
 import {secret} from "./config";
 import * as crypto from "crypto-js";
 
