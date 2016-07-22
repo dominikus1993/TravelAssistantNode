@@ -10,11 +10,11 @@ export interface Travel extends Document {
 }
 
 const TravelSchema = new Schema({
-    date: Date,
-    from: String,
-    owner: {ref: "User", type: Schema.Types.ObjectId},
-    placeLimit: Number,
-    to: String,
+    date: {required: true, type: Date},
+    from: {required: true, type: String},
+    owner: {ref: "User", required: true, type: Schema.Types.ObjectId},
+    placeLimit: {required: true, type: Number},
+    to: {required: true, type: String},
 });
 
 export const travelModel = model<Travel>("Travel", TravelSchema);

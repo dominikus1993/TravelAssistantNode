@@ -1,4 +1,4 @@
-import {Result, getResult} from "../global/result";
+import {Result, getError, getResult} from "../global/result";
 import {Travel} from "./model";
 import {ITravelRepository} from "./repository";
 import * as Promise from "bluebird";
@@ -28,6 +28,10 @@ export class TravelService implements ITravelService {
     }
 
     public save(travel: Travel): any {
-        return Promise.resolve(this.repository.save(travel));
+        return Promise.resolve(this.repository.save(travel)).then(fullfiled => {
+            return getResult(fullfiled);
+        }, rejected => {
+            return getError(rejected);
+        });
     }
 }
