@@ -1,11 +1,11 @@
 {
   "name": "travel_assistant",
   "dependencies": {
-    "bluebird": "registry:npm/bluebird#3.3.4+20160622205516",
     "mongoose": "registry:npm/mongoose#4.3.5+20160628072220",
     "ramda": "registry:npm/ramda#0.21.0+20160531162943"
   },
   "globalDependencies": {
+    "bluebird": "registry:dt/bluebird#2.0.0+20160701023356",
     "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "cookie-parser": "registry:dt/cookie-parser#1.3.4+20160316155526",
     "crypto-js": "registry:dt/crypto-js#3.1.4+20160708041433",
