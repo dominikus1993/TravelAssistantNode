@@ -19,7 +19,7 @@ export function register(req, res, next) {
 
 export function login(req, res, next) {
     let user: {username: string, password: string} = req.body;
-    service.login(user).then((fulfilled: Result<LoginData>) => {
+    service.login(user).then((fulfilled: Result<LoginData, Error>) => {
         res.status(status.OK).json(fulfilled).end();
     }).catch((error ?: any) => {
         res.status(status.NOT_FOUND).json(error).end();
@@ -28,7 +28,7 @@ export function login(req, res, next) {
 
 export function checkAuth(req, res, next) {
     let loginData: string = req.headers["authorization"] || "";
-    service.checkAuth(loginData).then((fullfiled: Result<User>) => {
+    service.checkAuth(loginData).then((fullfiled: Result<User, Error>) => {
         if (fullfiled.isSuccess) {
             req.user = fullfiled.value;
             next();

@@ -1,16 +1,16 @@
 import {isNullOrUndefined} from "./utils";
 
-export interface Result<T>{
+export interface Result<TResult, TError>{
     isSuccess: boolean;
     isError: boolean;
-    value: T;
-    message: Error;
+    value: TResult;
+    message: TError;
 }
 
-export function getError<T>(error: Error): Result<T>  {
+export function getError<TResult, TError>(error: TError): Result<TResult, TError> {
     return {isError : true, isSuccess : false,  message : error, value : null};
 }
 
-export function getResult<T>(element: T): Result<T> {
+export function getResult<TResult>(element: TResult): Result<TResult, any> {
     return {isError : false, isSuccess : !isNullOrUndefined(element), message : null, value : element};
 }

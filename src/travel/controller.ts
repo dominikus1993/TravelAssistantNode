@@ -19,7 +19,7 @@ export function create(req, res, next) {
     const user: User = req.user || {};
     const travel: Travel = req.body;
     travel.owner = user;
-    service.save(travel).then((fullfilled: Result<Travel>) => {
+    service.save(travel).then((fullfilled: Result<Travel, Error>) => {
         res.status(status.CREATED).json(fullfilled).end();
     }, rejected => {
         res.status(status.NOT_FOUND).json(rejected).end();

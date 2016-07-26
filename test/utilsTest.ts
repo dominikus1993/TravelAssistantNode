@@ -66,7 +66,6 @@ describe("test utils functions", () => {
             });
         });
 
-
         describe("put error to getError message function", () => {
             const testResult = getError(new Error("Unathorized access"));
             it("isSuccess should be true", () => {
@@ -88,5 +87,3 @@ describe("test utils functions", () => {
         });
     });
 });
-
-

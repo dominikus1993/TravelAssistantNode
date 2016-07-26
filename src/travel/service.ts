@@ -4,8 +4,8 @@ import {ITravelRepository} from "./repository";
 import * as Promise from "bluebird";
 
 export interface ITravelService {
-    findAll(): Promise<Result<Travel[]>>;
-    findBy(obj: Object): Promise<Result<Travel[]>>;
+    findAll(): Promise<Result<Travel[], Error>>;
+    findBy(obj: Object): Promise<Result<Travel[], Error>>;
     save(travel: Travel): any;
 }
 
@@ -15,13 +15,13 @@ export class TravelService implements ITravelService {
 
     }
 
-    public findAll(): Promise<Result<Travel[]>> {
+    public findAll(): Promise<Result<Travel[], Error>> {
         return Promise.resolve(this.repository.findAll()).then((res) => {
             return getResult(res);
         });
     }
 
-    public findBy(obj: Object): Promise<Result<Travel[]>> {
+    public findBy(obj: Object): Promise<Result<Travel[], Error>> {
         return Promise.resolve(this.repository.findBy(obj)).then((res) => {
             return getResult(res);
         });
