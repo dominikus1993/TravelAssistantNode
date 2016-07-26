@@ -1,5 +1,5 @@
 import Promise = require("bluebird");
-import {getError, getResult} from "../global/result";
+import {getError, getResult, Result} from "../global/result";
 import {encrypt, isNullOrUndefined} from "../global/utils";
 import {LoginData, User} from "./model";
 import {IUserRepository} from "./repository";
@@ -17,7 +17,7 @@ export class UserService implements IUserService {
     }
 
     public login(user: { username: string; password: string }) {
-        return Promise.resolve(this.userRepository.get({ username: user.username })).then(fulfilled => {
+        return Promise.resolve(this.userRepository.get({ username: user.username })).then((fulfilled: User) => {
             if (!isNullOrUndefined(fulfilled)) {
                 if (fulfilled.password === encrypt(user.password)) {
                     return Promise.resolve(fulfilled);
@@ -34,10 +34,10 @@ export class UserService implements IUserService {
                 expirationDate: new Date(new Date().setDate(new Date().getDate() + 6)),
                 user: fulfilled,
             });
-        }).then(resolve => {
+        }).then((resolve: LoginData) => {
             return getResult(resolve);
         }, rejected => {
-            return getError(rejected);
+            return getError<any, any>(rejected);
         });
     }
 
