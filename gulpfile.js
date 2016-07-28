@@ -1,6 +1,5 @@
 "use strict";
 const gulp = require("gulp");
-const babel = require("gulp-babel");
 const watch = require("gulp-watch");
 const typescript = require('gulp-typescript');
 const notify = require('gulp-notify');
@@ -15,13 +14,7 @@ const tsFiles = ["src/**/*.ts", "test/**/*.ts"];
 const jsFiles = ["src/**/*.js", "!node_modules/**/*.js", "test/**/*.js"];
 const filesToLint = ["src/**/*.ts", "test/**/*.ts"];
 
-var tsProject = typescript.createProject({
-    removeComments: true,
-    declaration: false,
-    noEmitOnError: true,
-    module: 'commonjs',
-    target : "ES6"
-});
+var tsProject = typescript.createProject("tsconfig.json");
 
 
 function lint(){
@@ -46,29 +39,12 @@ function build() {
         }));
 }
 
-function buildJs() {
-    return gulp.src(jsFiles).pipe(babel({
-        presets: ['es2015']
-    })).pipe(gulp.dest(function(file){
-        return file.base;
-    })).pipe(notify({
-        title: 'DONE COMPILATION JAVASCRIPT',
-        message: 'Compile file  <%= file.relative %>',
-        onLast: true,
-        notifier: function(args){}
-    }));
-}
-
-gulp.task("build", function() {
+gulp.task("compile", function() {
     return build();
 });
 
 gulp.task("lint", function () {
    return lint();
-});
-
-gulp.task("compile", ["build"], function () {
-    return buildJs();
 });
 
 gulp.task("test", ["compile", "lint"], function () {

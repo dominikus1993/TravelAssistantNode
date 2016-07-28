@@ -27,10 +27,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
     "browser-sync": "^2.11.2",
     "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.2",
     "gulp-jasmine": "^2.4.0",
     "gulp-nodemon": "^2.0.6",
     "gulp-notify": "^2.2.0",

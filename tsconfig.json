@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "removeComments": true,
+        "declaration": false,
+        "noEmitOnError": true,
+        "module": "commonjs",
+        "target": "ES6"
+    }
+}
