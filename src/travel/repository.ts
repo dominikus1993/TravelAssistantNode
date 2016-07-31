@@ -6,7 +6,7 @@ export interface ITravelRepository {
     findAll(): Promise<Travel[]>;
     findBy(obj: Object): Promise<Travel[]>;
     save(travel: Travel): any;
-    remove(travelId: string): Promise<{}>;
+    remove(by: Object): Promise<{}>;
 }
 
 export class TravelRepository implements ITravelRepository {
@@ -27,7 +27,7 @@ export class TravelRepository implements ITravelRepository {
         return new this.model(travel).save();
     }
 
-    public remove(travelId: string): Promise<{}> {
-        return this.model.remove({_id : travelId}).exec() as any as Promise<{}>;
+    public remove(by: Object): Promise<{}> {
+        return this.model.remove(by).exec() as any as Promise<{}>;
     }
 }
