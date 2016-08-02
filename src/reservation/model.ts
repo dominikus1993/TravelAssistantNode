@@ -18,4 +18,4 @@ const ReservationSchema = new Schema({
     user: {ref: "User", type: Schema.Types.ObjectId},
 });
 
-export const reservationModel = model<Travel>("Travel", ReservationSchema);
+export const reservationModel = model<Reservation>("Reservation", ReservationSchema);
