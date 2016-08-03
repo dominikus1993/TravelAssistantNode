@@ -41,7 +41,7 @@ export class TravelService implements ITravelService {
         return Promise.resolve(this.repository.findBy({_id: travel._id})).then((fullfiled: Travel[]) => {
             if (!R.isEmpty(fullfiled)) {
                 const travelToRm = R.head(fullfiled);
-                if (travelToRm.owner._id === user._id) {
+                if (travelToRm.ownerId === (user._id as any)) {
                     return Promise.resolve(travelToRm);
                 } else {
                     return Promise.reject(getError("Unathorized access"));

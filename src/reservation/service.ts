@@ -10,16 +10,17 @@ export interface IReservationService {
 
 export class ReservationService implements IReservationService {
 
-    constructor(private respository: IReservationRepository, travelRepository: ITravelRepository) {
+    constructor(private respository: IReservationRepository, private travelRepository: ITravelRepository) {
 
     }
 
     public save(reservation: Reservation): Promise<Result<any, Error>> {
-        return this.respository.save(reservation).then(fulfilled => {
-            return getResult(fulfilled);
-        }, rejected => {
-            return getError(new Error(rejected));
-        });
+        return null;
+        // return this.respository.save(reservation).then(fulfilled => {
+        //     return getResult(fulfilled);
+        // }, rejected => {
+        //     return getError(new Error(rejected));
+        // });
     }
 
 }

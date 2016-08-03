@@ -7,7 +7,7 @@ export interface User extends Document {
 }
 
 export interface LoginData extends Document {
-    user: string;
+    user: string | User;
     date: Date;
     expirationDate: Date;
 }

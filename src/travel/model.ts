@@ -5,7 +5,7 @@ export interface Travel extends Document {
     from: string;
     to: string;
     date: Date;
-    owner: User;
+    owner: string | User;
     placeLimit: number;
 }
 

@@ -20,10 +20,11 @@
     "hbs": "~3.1.0",
     "immutable": "^3.8.1",
     "mongodb": "^2.2.1",
-    "mongoose": "^4.5.0",
-    "morgan": "~1.6.1",
+    "mongoose": "^4.5.8",
+    "morgan": "~1.7.0",
     "mpromise": "^0.5.5",
     "q": "^1.4.1",
+    "ramda": "^0.21.0",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
