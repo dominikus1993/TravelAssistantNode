@@ -20,7 +20,7 @@ export class TravelRepository implements ITravelRepository {
     }
 
     public findBy(obj: Object): Promise<Travel[]> {
-        return this.model.find(obj).exec() as any as Promise<Travel[]>;
+        return this.model.find(obj).populate("owner").exec() as any as Promise<Travel[]>;
     }
 
     public save(travel: Travel) {
