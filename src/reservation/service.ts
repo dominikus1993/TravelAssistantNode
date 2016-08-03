@@ -22,4 +22,4 @@ export class ReservationService implements IReservationService {
         });
     }
 
-};
+}
