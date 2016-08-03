@@ -4,7 +4,7 @@ import {Router} from "express";
 
 const router = Router();
 
-router.get("/*", (req,res,next) => {
+router.get("/*", (req, res, next) => {
     res.header("Access-Control-Allow-Origin" , "*" );
     next(); // http://expressjs.com/guide.html#passing-route control
 });
