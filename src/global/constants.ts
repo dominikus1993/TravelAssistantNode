@@ -1,5 +1,7 @@
-export const OK = 200;
-export const CREATED = 201;
-export const SERVER_ERROR = 500;
-export const NOT_FOUND = 404;
-export const UNAUTHORIZED = 401;
+export const HTTP_STATUS = {
+    CREATED: 201,
+    NOT_FOUND: 404,
+    OK: 200,
+    SERVER_ERROR: 500,
+    UNAUTHORIZED: 401,
+};

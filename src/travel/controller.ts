@@ -1,4 +1,4 @@
-import * as status  from "../global/constants";
+import {HTTP_STATUS} from "../global/constants";
 import {Result} from "../global/result";
 import {User} from "../users/model";
 import {Travel, travelModel} from "./model";
@@ -9,9 +9,9 @@ const service = new TravelService(new TravelRepository(travelModel));
 
 export function all(req, res, next) {
     service.findAll().then((result) => {
-        res.status(status.OK).json(result).end();
+        res.status(HTTP_STATUS.OK).json(result).end();
     }).catch(error => {
-        res.status(status.NOT_FOUND).json(error).end();
+        res.status(HTTP_STATUS.NOT_FOUND).json(error).end();
     });
 }
 
@@ -20,10 +20,10 @@ export function create(req, res, next) {
     const travel: Travel = req.body;
     travel.owner = user;
     service.save(travel).then((fullfilled: Result<Travel, Error>) => {
-        res.status(status.CREATED).json(fullfilled).end();
+        res.status(HTTP_STATUS.CREATED).json(fullfilled).end();
     }, rejected => {
-        res.status(status.NOT_FOUND).json(rejected).end();
+        res.status(HTTP_STATUS.NOT_FOUND).json(rejected).end();
     }).catch(error => {
-        res.status(status.NOT_FOUND).json(error).end();
+        res.status(HTTP_STATUS.NOT_FOUND).json(error).end();
     });
 }
