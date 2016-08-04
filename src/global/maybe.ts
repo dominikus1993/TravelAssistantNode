@@ -8,7 +8,7 @@ export interface Monad<T> extends Functor<T> {
     bind<U>(fn: (el: T) => Monad<U>): Monad<U>;
 }
 
-interface Maybe<T> extends Monad<T> {
+export interface Maybe<T> extends Monad<T> {
 
 }
 
