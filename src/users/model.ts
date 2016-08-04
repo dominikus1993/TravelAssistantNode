@@ -1,9 +1,12 @@
 import {Document, Schema, model}  from "mongoose";
 
+type Role = "User" | "Admin"
+
 export interface User extends Document {
     username: string;
     email: string;
     password: string;
+    role: Role;
 }
 
 export interface LoginData extends Document {
@@ -15,6 +18,7 @@ export interface LoginData extends Document {
 const UsersSchema = new Schema({
     email: {index: {unique: true}, required: false, type: String},
     password: { required: true, type: String},
+    role: {type: String, enum: ["User", "Admin"], default: "User"},
     username: { index: {unique: true}, required: true, type: String},
 });
 
