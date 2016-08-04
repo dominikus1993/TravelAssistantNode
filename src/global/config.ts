@@ -1,5 +1,7 @@
-export const mongoDbUrl = "mongodb://localhost/travelAssistant";
-export const secret = "123456789";
+export const config = {
+  mongoDbUrl: "mongodb://localhost/travelAssistant",
+  secret: "123456789",
+};
 
 export const errorConfig = {
   configurable: true,

@@ -1,4 +1,4 @@
-import {secret} from "./config";
+import {config} from "./config";
 import * as crypto from "crypto-js";
 
 export function isNullOrUndefined(element: any): boolean {
@@ -6,5 +6,5 @@ export function isNullOrUndefined(element: any): boolean {
 }
 
 export function encrypt(text: string): string {
-    return crypto.MD5(text, secret).toString();
+    return crypto.MD5(text, config.secret).toString();
 }

@@ -1,4 +1,4 @@
-import {errorConfig, mongoDbUrl} from "./global/config";
+import {errorConfig, config} from "./global/config";
 import {getError} from "./global/result";
 import router from "./global/router";
 import Promise = require("bluebird");
@@ -10,7 +10,7 @@ import * as mongoose from "mongoose";
 import * as logger from "morgan";
 
 mongoose.Promise = Promise as any;
-mongoose.connect(mongoDbUrl);
+mongoose.connect(config.mongoDbUrl);
 Object.defineProperty(Error.prototype, "toJSON", errorConfig);
 
 const app = express();
