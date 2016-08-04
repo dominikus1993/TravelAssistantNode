@@ -30,7 +30,7 @@ export class TravelService implements ITravelService {
     }
 
     public save(travel: Travel): any {
-        return Promise.resolve(this.repository.save(travel)).then(fullfiled => {
+        return Promise.resolve(this.repository.save(travel)).then((fullfiled: Travel) => {
             return getResult(fullfiled);
         }, rejected => {
             return getError(rejected);
@@ -44,7 +44,7 @@ export class TravelService implements ITravelService {
                 if ((travelToRm.owner as any)._id === (user._id as any)) {
                     return Promise.resolve(travelToRm);
                 } else {
-                    return Promise.reject(getError("Unathorized access"));
+                    return Promise.reject(getError(new Error("Unathorized access")));
                 }
             } else {
                 return Promise.reject(getError(new Error("Can't find travel")));
