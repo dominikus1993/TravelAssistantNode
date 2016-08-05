@@ -3,7 +3,9 @@ import { countBusySlots } from "../src/reservation/service";
 
 describe("counting busy slots tests", () => {
     describe("two in one out", () => {
-        const reservations = [{ date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }, { date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }, { date: new Date(), travel: "123456", travelType: "OUT", user: "dshhfsd" }];
+        const reservations = [{ date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }
+            , { date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }
+            , { date: new Date(), travel: "123456", travelType: "OUT", user: "dshhfsd" }];
 
         it("ratio should equal 1", () => {
             const result = countBusySlots(reservations as any);
@@ -12,7 +14,8 @@ describe("counting busy slots tests", () => {
     });
 
     describe("one in one out", () => {
-        const reservations = [{ date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }, { date: new Date(), travel: "123456", travelType: "OUT", user: "dshhfsd" }];
+        const reservations = [{ date: new Date(), travel: "123456", travelType: "IN", user: "dshhfsd" }
+            , { date: new Date(), travel: "123456", travelType: "OUT", user: "dshhfsd" }];
 
         it("ratio should equal 0", () => {
             const result = countBusySlots(reservations as any);
