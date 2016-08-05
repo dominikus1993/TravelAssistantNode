@@ -1,4 +1,3 @@
-import { Reservation } from "../src/reservation/model";
 import { countBusySlots } from "../src/reservation/service";
 
 describe("counting busy slots tests", () => {
