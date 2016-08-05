@@ -1,5 +1,6 @@
-import {Result, getError, getResult} from "../global/result";
+import {Travel} from "../travel/model";
 import {ITravelRepository} from "../travel/repository";
+import {Result, getError, getResult} from "../global/result";
 import {Reservation} from "./model";
 import {IReservationRepository} from "./repository";
 import Promise = require("bluebird");
@@ -15,12 +16,22 @@ export class ReservationService implements IReservationService {
     }
 
     public save(reservation: Reservation): Promise<Result<any, Error>> {
-        return null;
-        // return this.respository.save(reservation).then(fulfilled => {
-        //     return getResult(fulfilled);
-        // }, rejected => {
-        //     return getError(new Error(rejected));
-        // });
+        const travelPromise = this.travelRepository.findBy({ _id: reservation.travel });
+        const reservationPromise = this.respository.findBy({ travel: reservation.travel });
+
+        return Promise.all([travelPromise, reservationPromise])
+            .then(([travels, reservations]: [Travel[], Reservation[]]) => {
+                if (R.isArrayLike(travels) && R.isArrayLike(reservations) && !R.isEmpty(travels)) {
+                    const travel = R.head(travels);
+                    if (travel.placeLimit > reservations.length) {
+                        return Promise.resolve(this.respository.save(reservation));
+                    }
+                    return Promise.reject(getError(new Error("Place limit")));
+                }
+                return Promise.reject(getError(new Error("Travel not exist")));
+            }).then(fulfilled => {
+                return Promise.resolve(getResult(fulfilled));
+            });
     }
 
 }
