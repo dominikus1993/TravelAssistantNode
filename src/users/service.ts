@@ -5,7 +5,7 @@ import {LoginData, User} from "./model";
 import {IUserRepository} from "./repository";
 
 export interface IUserService {
-    login(user: { username: string, password: string });
+    login(user: { username: string; password: string });
     register(user: { username: string; email: string; password: string; passwordConfirm: string });
     checkAuth(loginData: string);
 }
