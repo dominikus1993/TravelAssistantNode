@@ -71,20 +71,20 @@ describe("test for maybe monad", () => {
     });
 
     describe("fmap none", () => {
-        const val = setValue(null).bind(x => x);
+        const val = setValue(null).flatMap(x => x);
 
         it("should be still None", () => {
-            expect(isNone(val)).toBeTruthy();
-            expect(isJust(val)).toBeFalsy();
+            expect(isNone(val as Maybe<any>)).toBeTruthy();
+            expect(isJust(val as Maybe<any>)).toBeFalsy();
         });
     });
 
     describe("fmap number to string", () => {
-        const val = setValue(23).fmap(x => x.toString());
+        const val = setValue(23).flatMap(x => x.toString());
 
         it("should be Just a string", () => {
-            expect(isNone(val as Maybe<string>)).toBeFalsy();
-            expect(isJust(val as Maybe<string>)).toBeTruthy();
+            expect(isNone(val)).toBeFalsy();
+            expect(isJust(val)).toBeTruthy();
             expect(((val as Just<string>)).value).toEqual("23");
         });
     });

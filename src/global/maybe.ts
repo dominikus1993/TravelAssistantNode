@@ -1,15 +1,9 @@
 import { isNullOrUndefined } from "./utils";
 
-export interface Functor<T> {
-    fmap<U>(fn: (el: T) => U): Functor<U>;
-}
 
-export interface Monad<T> extends Functor<T> {
-    bind<U>(fn: (el: T) => Monad<U>): Monad<U>;
-}
-
-export interface Maybe<T> extends Monad<T> {
-
+export interface Maybe<T> {
+    flatMap<U>(fn: (el: T) => U): Maybe<U>;
+    bind<U>(fn: (el: T) => Maybe<U>): Maybe<U>;
 }
 
 
@@ -26,7 +20,7 @@ export class Just<T> implements Maybe<T> {
         return fn(this._value);
     }
 
-    public fmap<U>(fn: (el: T) => U): Just<U> {
+    public flatMap<U>(fn: (el: T) => U): Just<U> {
         return new Just(fn(this._value));
     }
 }
@@ -36,7 +30,7 @@ export class None<T> implements Maybe<T> {
         return new None();
     }
 
-    public fmap<U>(fn: (el: T) => U): None<U> {
+    public flatMap<U>(fn: (el: T) => U): None<U> {
         return new None();
     }
 }
