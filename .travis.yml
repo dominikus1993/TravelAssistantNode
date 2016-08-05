@@ -3,8 +3,6 @@ node_js:
 - "6.3"
 - "6"
 - "6.1"
-- "5.11"
-- "4.1"
 sudo: true
 before_script:
 - npm install
