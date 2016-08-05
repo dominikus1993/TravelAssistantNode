@@ -22,6 +22,7 @@ export function countBusySlots(reservations: Reservation[]): number {
 
 export interface IReservationService {
     reserve(reservation: Reservation): Promise<any>;
+    findByTravelId(id: string): Promise<Result<Reservation[], Error>>;
 }
 
 export class ReservationService implements IReservationService {
@@ -51,4 +52,11 @@ export class ReservationService implements IReservationService {
             });
     }
 
+    public findByTravelId(id: string): Promise<Result<Reservation[], Error>> {
+        return this.respository.findBy({travel: id}).then((fulfilled: Reservation[]) => {
+            return getResult(fulfilled);
+        }, rejected => {
+            return getError(new Error(rejected));
+        });
+    }
 }
