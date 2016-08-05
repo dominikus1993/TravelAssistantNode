@@ -1,4 +1,4 @@
-import {errorConfig, config} from "./global/config";
+import {config, errorConfig} from "./global/config";
 import {getError} from "./global/result";
 import router from "./global/router";
 import Promise = require("bluebird");
