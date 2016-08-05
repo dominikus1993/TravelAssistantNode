@@ -29,6 +29,8 @@ export class ReservationService implements IReservationService {
                     return Promise.reject(getError(new Error("Place limit")));
                 }
                 return Promise.reject(getError(new Error("Travel not exist")));
+            }, rejected => {
+                return Promise.reject(getError(new Error(rejected)));
             }).then(fulfilled => {
                 return Promise.resolve(getResult(fulfilled));
             });
