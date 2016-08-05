@@ -4,9 +4,24 @@ import {Result, getError, getResult} from "../global/result";
 import {Reservation} from "./model";
 import {IReservationRepository} from "./repository";
 import Promise = require("bluebird");
+import * as R from "ramda";
+
+export function countBusySlots(reservations: Reservation[]): number {
+    if (!R.isEmpty(reservations)){
+        const [_in, out] =  reservations.map(x => x.travelType).reduce(([_in, out], x) => {
+            if (x === "IN") {
+                return [_in + 1, out]
+            }
+            return [_in, out + 1];
+        }, [0, 0]);
+
+        return _in - out;
+    }
+    return 0;
+}
 
 export interface IReservationService {
-    save(reservation: Reservation): Promise<any>;
+    reserve(reservation: Reservation): Promise<any>;
 }
 
 export class ReservationService implements IReservationService {
@@ -15,7 +30,7 @@ export class ReservationService implements IReservationService {
 
     }
 
-    public save(reservation: Reservation): Promise<Result<any, Error>> {
+    public reserve(reservation: Reservation): Promise<Result<any, Error>> {
         const travelPromise = this.travelRepository.findBy({ _id: reservation.travel });
         const reservationPromise = this.respository.findBy({ travel: reservation.travel });
 
@@ -23,7 +38,7 @@ export class ReservationService implements IReservationService {
             .then(([travels, reservations]: [Travel[], Reservation[]]) => {
                 if (R.isArrayLike(travels) && R.isArrayLike(reservations) && !R.isEmpty(travels)) {
                     const travel = R.head(travels);
-                    if (travel.placeLimit > reservations.length) {
+                    if (travel.placeLimit > countBusySlots(reservations)) {
                         return Promise.resolve(this.respository.save(reservation));
                     }
                     return Promise.reject(getError(new Error("Place limit")));
