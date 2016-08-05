@@ -1,6 +1,5 @@
 import { isNullOrUndefined } from "./utils";
 
-
 export interface Maybe<T> {
     flatMap<U>(fn: (el: T) => U): Maybe<U>;
     bind<U>(fn: (el: T) => Maybe<U>): Maybe<U>;
