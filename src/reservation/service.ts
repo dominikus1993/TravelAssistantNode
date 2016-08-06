@@ -7,7 +7,7 @@ import Promise = require("bluebird");
 import * as R from "ramda";
 
 export function countBusySlots(reservations: Reservation[]): number {
-    if (!R.isEmpty(reservations)){
+    if (!R.isEmpty(reservations)) {
         const [_in, out] =  reservations.map(x => x.travelType).reduce(([_in, out], x) => {
             if (x === "IN") {
                 return [_in + 1, out]
@@ -20,8 +20,17 @@ export function countBusySlots(reservations: Reservation[]): number {
     return 0;
 }
 
+
+export function canOut(reservations: Reservation[]): boolean {
+    return countBusySlots(reservations) > 0;
+}
+
+export function canIn(reservations: Reservation[], slotsLimit: number): boolean {
+    return slotsLimit > countBusySlots(reservations);
+}
+
 export interface IReservationService {
-    reserve(reservation: Reservation): Promise<any>;
+    save(reservation: Reservation): Promise<any>;
     findByTravelId(id: string): Promise<Result<Reservation[], Error>>;
 }
 
@@ -31,7 +40,7 @@ export class ReservationService implements IReservationService {
 
     }
 
-    public reserve(reservation: Reservation): Promise<Result<any, Error>> {
+    public save(reservation: Reservation): Promise<Result<any, Error>> {
         const travelPromise = this.travelRepository.findBy({ _id: reservation.travel });
         const reservationPromise = this.respository.findBy({ travel: reservation.travel });
 
@@ -39,7 +48,7 @@ export class ReservationService implements IReservationService {
             .then(([travels, reservations]: [Travel[], Reservation[]]) => {
                 if (R.isArrayLike(travels) && R.isArrayLike(reservations) && !R.isEmpty(travels)) {
                     const travel = R.head(travels);
-                    if (travel.placeLimit > countBusySlots(reservations)) {
+                    if ((reservation.travelType === "OUT" && canOut(reservations)) || (reservation.travelType === "IN" && canIn(reservations, travel.placeLimit))) {
                         return Promise.resolve(this.respository.save(reservation));
                     }
                     return Promise.reject(getError(new Error("Place limit")));
